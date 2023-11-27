@@ -1,0 +1,24 @@
+---
+title: "Find A Gene Project"
+author: "Jacob Gil"
+format: html
+---
+
+[Q1] Tell me the name of a protein you are interested in. Include the species and the accession
+number. This can be a human protein or a protein from any other species as long as it's function
+is known.
+If you do not have a favorite protein, select human RBP4 or KIF11. Do not use beta globin as
+this is in the worked example report that I provide you with online.
+
+Name: RBP4
+Accession: P02753.3
+Species: Homo Sapiens
+
+
+[Q2] Perform a BLAST search against a DNA database, such as a database consisting of
+genomic DNA or ESTs. The BLAST server can be at NCBI or elsewhere. Include details of the
+BLAST method used, database searched and any limits applied (e.g. Organism).
+
+Method: TBLASTN (2.7.1) search against nematode ESTs
+Database: Nucleotide collection (nt)
+Organism: Homo sapiens (taxid:9606)

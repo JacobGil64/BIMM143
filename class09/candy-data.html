@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5036/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jacob Gil">
+
+<title>class09</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="./candy-data_files/clipboard.min.js"></script>
+<script src="./candy-data_files/quarto.js"></script>
+<script src="./candy-data_files/popper.min.js"></script>
+<script src="./candy-data_files/tippy.umd.min.js"></script>
+<script src="./candy-data_files/anchor.min.js"></script>
+<link href="./candy-data_files/tippy.css" rel="stylesheet">
+<link href="./candy-data_files/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="./candy-data_files/bootstrap.min.js"></script>
+<link href="./candy-data_files/bootstrap-icons.css" rel="stylesheet">
+<link href="./candy-data_files/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="./candy-data_files/htmlwidgets.js"></script>
+<script src="./candy-data_files/plotly.js"></script>
+<script src="./candy-data_files/typedarray.min.js"></script>
+<script src="./candy-data_files/jquery.min.js"></script>
+<link href="./candy-data_files/crosstalk.min.css" rel="stylesheet">
+<script src="./candy-data_files/crosstalk.min.js"></script>
+<link href="./candy-data_files/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="./candy-data_files/plotly-latest.min.js"></script><style id="plotly.js-style-global"></style>
+
+
+<style id="plotly.js-style-modebar-a836fe"></style></head>
+
+<body class="fullcontent quarto-light" data-new-gr-c-s-check-loaded="14.1135.0" data-gr-ext-installed="">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">class09</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jacob Gil </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="http://localhost:5036/#cb1-1" aria-hidden="true" tabindex="-1"></a>candy_file <span class="ot">&lt;-</span> <span class="st">"candy-data.csv"</span></span>
+<span id="cb1-2"><a href="http://localhost:5036/#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="http://localhost:5036/#cb1-3" aria-hidden="true" tabindex="-1"></a>candy <span class="ot">=</span> <span class="fu">read.csv</span>(candy_file, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="http://localhost:5036/#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(candy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             chocolate fruity caramel peanutyalmondy nougat crispedricewafer
+100 Grand            1      0       1              0      0                1
+3 Musketeers         1      0       0              0      1                0
+One dime             0      0       0              0      0                0
+One quarter          0      0       0              0      0                0
+Air Heads            0      1       0              0      0                0
+Almond Joy           1      0       0              1      0                0
+             hard bar pluribus sugarpercent pricepercent winpercent
+100 Grand       0   1        0        0.732        0.860   66.97173
+3 Musketeers    0   1        0        0.604        0.511   67.60294
+One dime        0   0        0        0.011        0.116   32.26109
+One quarter     0   0        0        0.011        0.511   46.11650
+Air Heads       0   0        0        0.906        0.511   52.34146
+Almond Joy      0   1        0        0.465        0.767   50.34755</code></pre>
+</div>
+</div>
+<p>Q1. How many different candy types are in this dataset?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="http://localhost:5036/#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(candy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 85</code></pre>
+</div>
+</div>
+<p>Q2. How many fruity candy types are in the dataset?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="http://localhost:5036/#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(candy<span class="sc">$</span>fruity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 38</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="http://localhost:5036/#cb7-1" aria-hidden="true" tabindex="-1"></a>candy[<span class="st">"Twix"</span>, ]<span class="sc">$</span>winpercent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 81.64291</code></pre>
+</div>
+</div>
+<p>Q3. What is your favorite candy in the dataset and what is it’s winpercent value?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="http://localhost:5036/#cb9-1" aria-hidden="true" tabindex="-1"></a>candy[<span class="st">"100 Grand"</span>, ]<span class="sc">$</span>winpercent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 66.97173</code></pre>
+</div>
+</div>
+<p>Q4. What is the winpercent value for “Kit Kat”?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="http://localhost:5036/#cb11-1" aria-hidden="true" tabindex="-1"></a>candy[<span class="st">"Kit Kat"</span>, ]<span class="sc">$</span>winpercent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 76.7686</code></pre>
+</div>
+</div>
+<p>Q5. What is the winpercent value for “Tootsie Roll Snack Bars”?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="http://localhost:5036/#cb13-1" aria-hidden="true" tabindex="-1"></a>candy[<span class="st">"Tootsie Roll Snack Bars"</span>, ]<span class="sc">$</span>winpercent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 49.6535</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="http://localhost:5036/#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"skimr"</span>)</span>
+<span id="cb15-2"><a href="http://localhost:5036/#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(candy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">candy</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">chocolate</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fruity</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">caramel</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">peanutyalmondy</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nougat</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">crispedricewafer</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hard</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bar</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pluribus</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sugarpercent</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: left;">▇▇▇▇▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pricepercent</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: left;">▇▇▇▇▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">winpercent</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">50.32</td>
+<td style="text-align: right;">14.71</td>
+<td style="text-align: right;">22.45</td>
+<td style="text-align: right;">39.14</td>
+<td style="text-align: right;">47.83</td>
+<td style="text-align: right;">59.86</td>
+<td style="text-align: right;">84.18</td>
+<td style="text-align: left;">▃▇▆▅▂</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Q6. Is there any variable/column that looks to be on a different scale to the majority of the other columns in the dataset? The win percent row is on a different scale (0-100)</p>
+<p>Q7. What do you think a zero and one represent for the candy$chocolate column? 1 means the candy has chocolate, 0 means the candy does not</p>
+<p>Q8. Plot a histogram of winpercent values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="http://localhost:5036/#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(candy<span class="sc">$</span>winpercent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Q9. Is the distribution of winpercent values symmetrical? no, it is right skewed</p>
+<p>Q10. Is the center of the distribution above or below 50%? The center of distribution is below 50% because the tallest bar is below 50 for these bins</p>
+<p>Q11. On average is chocolate candy higher or lower ranked than fruit candy?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="http://localhost:5036/#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(candy<span class="sc">$</span>winpercent[<span class="fu">as.logical</span>(candy<span class="sc">$</span>chocolate)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60.92153</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="http://localhost:5036/#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(candy<span class="sc">$</span>winpercent[<span class="fu">as.logical</span>(candy<span class="sc">$</span>fruity)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.11974</code></pre>
+</div>
+</div>
+<p>chocolate is ranked higher</p>
+<p>Q12. Is this difference statistically significant?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="http://localhost:5036/#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(candy<span class="sc">$</span>winpercent[<span class="fu">as.logical</span>(candy<span class="sc">$</span>chocolate)],candy<span class="sc">$</span>winpercent[<span class="fu">as.logical</span>(candy<span class="sc">$</span>fruity)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  candy$winpercent[as.logical(candy$chocolate)] and candy$winpercent[as.logical(candy$fruity)]
+t = 6.2582, df = 68.882, p-value = 2.871e-08
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 11.44563 22.15795
+sample estimates:
+mean of x mean of y 
+ 60.92153  44.11974 </code></pre>
+</div>
+</div>
+<p>a p-value of 2.871e-08 indicates that the difference is statistically significant</p>
+<p>Q13. What are the five least liked candy types in this set?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="http://localhost:5036/#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(candy[<span class="fu">order</span>(candy<span class="sc">$</span>winpercent),], <span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   chocolate fruity caramel peanutyalmondy nougat
+Nik L Nip                  0      1       0              0      0
+Boston Baked Beans         0      0       0              1      0
+Chiclets                   0      1       0              0      0
+Super Bubble               0      1       0              0      0
+Jawbusters                 0      1       0              0      0
+                   crispedricewafer hard bar pluribus sugarpercent pricepercent
+Nik L Nip                         0    0   0        1        0.197        0.976
+Boston Baked Beans                0    0   0        1        0.313        0.511
+Chiclets                          0    0   0        1        0.046        0.325
+Super Bubble                      0    0   0        0        0.162        0.116
+Jawbusters                        0    1   0        1        0.093        0.511
+                   winpercent
+Nik L Nip            22.44534
+Boston Baked Beans   23.41782
+Chiclets             24.52499
+Super Bubble         27.30386
+Jawbusters           28.12744</code></pre>
+</div>
+</div>
+<p>Nik L Nip, Boston Baked Beans, Chiclets, Super Bubble, Jawbusters</p>
+<p>Q14. What are the top 5 all time favorite candy types out of this set?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="http://localhost:5036/#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(candy[<span class="fu">order</span>(candy<span class="sc">$</span>winpercent,<span class="at">decreasing =</span> <span class="cn">TRUE</span>),], <span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          chocolate fruity caramel peanutyalmondy nougat
+Reese's Peanut Butter cup         1      0       0              1      0
+Reese's Miniatures                1      0       0              1      0
+Twix                              1      0       1              0      0
+Kit Kat                           1      0       0              0      0
+Snickers                          1      0       1              1      1
+                          crispedricewafer hard bar pluribus sugarpercent
+Reese's Peanut Butter cup                0    0   0        0        0.720
+Reese's Miniatures                       0    0   0        0        0.034
+Twix                                     1    0   1        0        0.546
+Kit Kat                                  1    0   1        0        0.313
+Snickers                                 0    0   1        0        0.546
+                          pricepercent winpercent
+Reese's Peanut Butter cup        0.651   84.18029
+Reese's Miniatures               0.279   81.86626
+Twix                             0.906   81.64291
+Kit Kat                          0.511   76.76860
+Snickers                         0.651   76.67378</code></pre>
+</div>
+</div>
+<p>Reese’s Peanut Butter Cup, Reese’s Miniatures, Twix, Kit Kat, Snickers</p>
+<p>Q15. Make a first barplot of candy ranking based on winpercent values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="http://localhost:5036/#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb27-2"><a href="http://localhost:5036/#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="http://localhost:5036/#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(candy) <span class="sc">+</span> </span>
+<span id="cb27-4"><a href="http://localhost:5036/#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(winpercent, <span class="fu">rownames</span>(candy)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="http://localhost:5036/#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Q16. This is quite ugly, use the reorder() function to get the bars sorted by winpercent?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="http://localhost:5036/#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb28-2"><a href="http://localhost:5036/#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="http://localhost:5036/#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(candy) <span class="sc">+</span> </span>
+<span id="cb28-4"><a href="http://localhost:5036/#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(winpercent, <span class="fu">reorder</span>(<span class="fu">rownames</span>(candy), winpercent)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="http://localhost:5036/#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="http://localhost:5036/#cb29-1" aria-hidden="true" tabindex="-1"></a>my_cols<span class="ot">=</span><span class="fu">rep</span>(<span class="st">"black"</span>, <span class="fu">nrow</span>(candy))</span>
+<span id="cb29-2"><a href="http://localhost:5036/#cb29-2" aria-hidden="true" tabindex="-1"></a>my_cols[<span class="fu">as.logical</span>(candy<span class="sc">$</span>chocolate)] <span class="ot">=</span> <span class="st">"chocolate"</span></span>
+<span id="cb29-3"><a href="http://localhost:5036/#cb29-3" aria-hidden="true" tabindex="-1"></a>my_cols[<span class="fu">as.logical</span>(candy<span class="sc">$</span>bar)] <span class="ot">=</span> <span class="st">"brown"</span></span>
+<span id="cb29-4"><a href="http://localhost:5036/#cb29-4" aria-hidden="true" tabindex="-1"></a>my_cols[<span class="fu">as.logical</span>(candy<span class="sc">$</span>fruity)] <span class="ot">=</span> <span class="st">"pink"</span></span>
+<span id="cb29-5"><a href="http://localhost:5036/#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="http://localhost:5036/#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(candy) <span class="sc">+</span> </span>
+<span id="cb29-7"><a href="http://localhost:5036/#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(winpercent, <span class="fu">reorder</span>(<span class="fu">rownames</span>(candy),winpercent)) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="http://localhost:5036/#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill=</span>my_cols) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Q17. What is the worst ranked chocolate candy? sixlets</p>
+<p>Q18. What is the best ranked fruity candy? starburst</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="http://localhost:5036/#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb30-2"><a href="http://localhost:5036/#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="http://localhost:5036/#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How about a plot of price vs win</span></span>
+<span id="cb30-4"><a href="http://localhost:5036/#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(candy) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="http://localhost:5036/#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(winpercent, pricepercent, <span class="at">label=</span><span class="fu">rownames</span>(candy)) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="http://localhost:5036/#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">col=</span>my_cols) <span class="sc">+</span> </span>
+<span id="cb30-7"><a href="http://localhost:5036/#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">col=</span>my_cols, <span class="at">size=</span><span class="fl">3.3</span>, <span class="at">max.overlaps =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: ggrepel: 50 unlabeled data points (too many overlaps). Consider
+increasing max.overlaps</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Q19. Which candy type is the highest ranked in terms of winpercent for the least money - i.e.&nbsp;offers the most bang for your buck? Reese’s miniatures</p>
+<p>Q20. What are the top 5 most expensive candy types in the dataset and of these which is the least popular?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="http://localhost:5036/#cb32-1" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(candy<span class="sc">$</span>pricepercent, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-2"><a href="http://localhost:5036/#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( candy[ord,<span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">12</span>)], <span class="at">n=</span><span class="dv">5</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         pricepercent winpercent
+Nik L Nip                       0.976   22.44534
+Nestle Smarties                 0.976   37.88719
+Ring pop                        0.965   35.29076
+Hershey's Krackel               0.918   62.28448
+Hershey's Milk Chocolate        0.918   56.49050</code></pre>
+</div>
+</div>
+<p>In order of least to most popular: Nik L Nip, Ring Pop, Nestle Smarties, Hershey’s Milk Chocolate, Hersheys’s Krackel</p>
+<p>Q21. Make a barplot again with geom_col() this time using pricepercent and then improve this step by step, first ordering the x-axis by value and finally making a so called “dot chat” or “lollipop” chart by swapping geom_col() for geom_point() + geom_segment().</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="http://localhost:5036/#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(candy) <span class="sc">+</span> </span>
+<span id="cb34-2"><a href="http://localhost:5036/#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(pricepercent, <span class="fu">reorder</span>(<span class="fu">rownames</span>(candy), pricepercent)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="http://localhost:5036/#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="http://localhost:5036/#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a lollipop chart of pricepercent</span></span>
+<span id="cb35-2"><a href="http://localhost:5036/#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(candy) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="http://localhost:5036/#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(pricepercent, <span class="fu">reorder</span>(<span class="fu">rownames</span>(candy), pricepercent)) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="http://localhost:5036/#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">yend =</span> <span class="fu">reorder</span>(<span class="fu">rownames</span>(candy), pricepercent), </span>
+<span id="cb35-5"><a href="http://localhost:5036/#cb35-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> <span class="dv">0</span>), <span class="at">col=</span><span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="http://localhost:5036/#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="http://localhost:5036/#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>corrplot 0.92 loaded</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="http://localhost:5036/#cb38-1" aria-hidden="true" tabindex="-1"></a>cij <span class="ot">&lt;-</span> <span class="fu">cor</span>(candy)</span>
+<span id="cb38-2"><a href="http://localhost:5036/#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cij)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Q22. Examining this plot what two variables are anti-correlated (i.e.&nbsp;have minus values)? chocolate and fruity</p>
+<p>Q23. Similarly, what two variables are most positively correlated? chocolate and winpercent</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="http://localhost:5036/#cb39-1" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(candy, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-2"><a href="http://localhost:5036/#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Importance of components:
+                          PC1    PC2    PC3     PC4    PC5     PC6     PC7
+Standard deviation     2.0788 1.1378 1.1092 1.07533 0.9518 0.81923 0.81530
+Proportion of Variance 0.3601 0.1079 0.1025 0.09636 0.0755 0.05593 0.05539
+Cumulative Proportion  0.3601 0.4680 0.5705 0.66688 0.7424 0.79830 0.85369
+                           PC8     PC9    PC10    PC11    PC12
+Standard deviation     0.74530 0.67824 0.62349 0.43974 0.39760
+Proportion of Variance 0.04629 0.03833 0.03239 0.01611 0.01317
+Cumulative Proportion  0.89998 0.93832 0.97071 0.98683 1.00000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="http://localhost:5036/#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="http://localhost:5036/#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">col=</span>my_cols, <span class="at">pch=</span><span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="http://localhost:5036/#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a new data-frame with our PCA results and candy data</span></span>
+<span id="cb43-2"><a href="http://localhost:5036/#cb43-2" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(candy, pca<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb43-3"><a href="http://localhost:5036/#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="http://localhost:5036/#cb43-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my_data) <span class="sc">+</span> </span>
+<span id="cb43-5"><a href="http://localhost:5036/#cb43-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2, </span>
+<span id="cb43-6"><a href="http://localhost:5036/#cb43-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">size=</span>winpercent<span class="sc">/</span><span class="dv">100</span>,  </span>
+<span id="cb43-7"><a href="http://localhost:5036/#cb43-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">text=</span><span class="fu">rownames</span>(my_data),</span>
+<span id="cb43-8"><a href="http://localhost:5036/#cb43-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">label=</span><span class="fu">rownames</span>(my_data)) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="http://localhost:5036/#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">col=</span>my_cols)</span>
+<span id="cb43-10"><a href="http://localhost:5036/#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="http://localhost:5036/#cb43-11" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="http://localhost:5036/#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb44-2"><a href="http://localhost:5036/#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="http://localhost:5036/#cb44-3" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_text_repel</span>(<span class="at">size=</span><span class="fl">3.3</span>, <span class="at">col=</span>my_cols, <span class="at">max.overlaps =</span> <span class="dv">7</span>)  <span class="sc">+</span> </span>
+<span id="cb44-4"><a href="http://localhost:5036/#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="http://localhost:5036/#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Halloween Candy PCA Space"</span>,</span>
+<span id="cb44-6"><a href="http://localhost:5036/#cb44-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">"Colored by type: chocolate bar (dark brown), chocolate other (light brown), fruity (red), other (black)"</span>,</span>
+<span id="cb44-7"><a href="http://localhost:5036/#cb44-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">"Data from 538"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: ggrepel: 39 unlabeled data points (too many overlaps). Consider
+increasing max.overlaps</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="http://localhost:5036/#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'plotly'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggplot2':
+
+    last_plot</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    filter</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:graphics':
+
+    layout</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="http://localhost:5036/#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item html-widget-static-bound js-plotly-plot" id="htmlwidget-5b1241b206f92c6e0be4" style="width:100%;height:464px;"><div class="plot-container plotly"><div class="user-select-none svg-container" style="position: relative; width: 799px; height: 464px;"><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="799" height="464" style="background: rgb(255, 255, 255);"><defs id="defs-a836fe"><g class="clips"><clippath id="clipa836fexyplot" class="plotclip"><rect width="750" height="395"></rect></clippath><clippath class="axesclip" id="clipa836fex"><rect x="42" y="0" width="750" height="464"></rect></clippath><clippath class="axesclip" id="clipa836fey"><rect x="0" y="26" width="799" height="395"></rect></clippath><clippath class="axesclip" id="clipa836fexy"><rect x="42" y="26" width="750" height="395"></rect></clippath></g><g class="gradients"></g><g class="patterns"></g></defs><g class="bglayer"><rect class="bg" x="42" y="26" width="750" height="395" style="fill: rgb(235, 235, 235); fill-opacity: 1; stroke-width: 0;"></rect></g><g class="draglayer cursor-crosshair"><g class="xy"><rect class="nsewdrag drag" data-subplot="xy" x="42" y="26" width="750" height="395" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="nwdrag drag cursor-nw-resize" data-subplot="xy" x="22" y="6" width="20" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="nedrag drag cursor-ne-resize" data-subplot="xy" x="792" y="6" width="20" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="swdrag drag cursor-sw-resize" data-subplot="xy" x="22" y="421" width="20" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="sedrag drag cursor-se-resize" data-subplot="xy" x="792" y="421" width="20" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="ewdrag drag cursor-ew-resize" data-subplot="xy" x="117" y="421.5" width="600" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="wdrag drag cursor-w-resize" data-subplot="xy" x="42" y="421.5" width="75" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="edrag drag cursor-e-resize" data-subplot="xy" x="717" y="421.5" width="75" height="20" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="nsdrag drag cursor-ns-resize" data-subplot="xy" x="21.5" y="65.5" width="20" height="316" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="sdrag drag cursor-s-resize" data-subplot="xy" x="21.5" y="381.5" width="20" height="39.5" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect><rect class="ndrag drag cursor-n-resize" data-subplot="xy" x="21.5" y="26" width="20" height="39.5" style="fill: transparent; stroke-width: 0; pointer-events: all;"></rect></g></g><g class="layer-below"><g class="imagelayer"></g><g class="shapelayer"></g></g><g class="cartesianlayer"><g class="subplot xy"><g class="layer-subplot"><g class="shapelayer"></g><g class="imagelayer"></g></g><g class="gridlayer"><g class="x"><path class="xgrid crisp" transform="translate(255.56,0)" d="M0,26v395" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="xgrid crisp" transform="translate(492.23,0)" d="M0,26v395" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="xgrid crisp" transform="translate(728.9,0)" d="M0,26v395" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path></g><g class="y"><path class="ygrid crisp" transform="translate(0,415.64)" d="M42,0h750" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ygrid crisp" transform="translate(0,345.62)" d="M42,0h750" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ygrid crisp" transform="translate(0,275.59000000000003)" d="M42,0h750" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ygrid crisp" transform="translate(0,205.56)" d="M42,0h750" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ygrid crisp" transform="translate(0,135.54000000000002)" d="M42,0h750" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ygrid crisp" transform="translate(0,65.50999999999999)" d="M42,0h750" style="stroke: rgb(255, 255, 255); stroke-opacity: 1; stroke-width: 1px;"></path></g></g><g class="zerolinelayer"></g><path class="xlines-below"></path><path class="ylines-below"></path><g class="overlines-below"></g><g class="xaxislayer-below"></g><g class="yaxislayer-below"></g><g class="overaxes-below"></g><g class="plot" transform="translate(42,26)" clip-path="url(#clipa836fexyplot)"><g class="scatterlayer mlayer"><g class="trace scatter trace8ebd67" style="stroke-miterlimit: 2; opacity: 1;"><g class="fills"></g><g class="errorbars"></g><g class="lines"></g><g class="points"><path class="point" transform="translate(88.61,221.13)" d="M9.91,0A9.91,9.91 0 1,1 0,-9.91A9.91,9.91 0 0,1 9.91,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(185.53,285.98)" d="M9.97,0A9.97,9.97 0 1,1 0,-9.97A9.97,9.97 0 0,1 9.97,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(564.07,167.53)" d="M5.66,0A5.66,5.66 0 1,1 0,-5.66A5.66,5.66 0 0,1 5.66,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(492.7,147.91)" d="M7.74,0A7.74,7.74 0 1,1 0,-7.74A7.74,7.74 0 0,1 7.74,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(516.77,219.7)" d="M8.47,0A8.47,8.47 0 1,1 0,-8.47A8.47,8.47 0 0,1 8.47,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(216.56,130.3)" d="M8.24,0A8.24,8.24 0 1,1 0,-8.24A8.24,8.24 0 0,1 8.24,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(61.59,326.63)" d="M8.95,0A8.95,8.95 0 1,1 0,-8.95A8.95,8.95 0 0,1 8.95,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(517.81,94.84)" d="M3.08,0A3.08,3.08 0 1,1 0,-3.08A3.08,3.08 0 0,1 3.08,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(546.18,159.71)" d="M6.63,0A6.63,6.63 0 1,1 0,-6.63A6.63,6.63 0 0,1 6.63,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(526.95,298.33)" d="M6.07,0A6.07,6.07 0 1,1 0,-6.07A6.07,6.07 0 0,1 6.07,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(246.28,314.74)" d="M6.78,0A6.78,6.78 0 1,1 0,-6.78A6.78,6.78 0 0,1 6.78,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(606.68,174.48)" d="M6.32,0A6.32,6.32 0 1,1 0,-6.32A6.32,6.32 0 0,1 6.32,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(675.71,148.53)" d="M3.62,0A3.62,3.62 0 1,1 0,-3.62A3.62,3.62 0 0,1 3.62,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(593.41,168.19)" d="M7.24,0A7.24,7.24 0 1,1 0,-7.24A7.24,7.24 0 0,1 7.24,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(653.22,308.33)" d="M6.85,0A6.85,6.85 0 1,1 0,-6.85A6.85,6.85 0 0,1 6.85,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(664.3,138.82)" d="M7.35,0A7.35,7.35 0 1,1 0,-7.35A7.35,7.35 0 0,1 7.35,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(622.88,304.41)" d="M6.81,0A6.81,6.81 0 1,1 0,-6.81A6.81,6.81 0 0,1 6.81,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(635.82,253.68)" d="M7.82,0A7.82,7.82 0 1,1 0,-7.82A7.82,7.82 0 0,1 7.82,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(576.48,138.3)" d="M8.97,0A8.97,8.97 0 1,1 0,-8.97A8.97,8.97 0 0,1 8.97,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(555.47,135.74)" d="M6.01,0A6.01,6.01 0 1,1 0,-6.01A6.01,6.01 0 0,1 6.01,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(588.59,144.03)" d="M8.36,0A8.36,8.36 0 1,1 0,-8.36A8.36,8.36 0 0,1 8.36,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(608.18,153.31)" d="M7.23,0A7.23,7.23 0 1,1 0,-7.23A7.23,7.23 0 0,1 7.23,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(485.94,69.94)" d="M8.79,0A8.79,8.79 0 1,1 0,-8.79A8.79,8.79 0 0,1 8.79,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(161.69,131.59)" d="M9.48,0A9.48,9.48 0 1,1 0,-9.48A9.48,9.48 0 0,1 9.48,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(249.82,162.02)" d="M8.91,0A8.91,8.91 0 1,1 0,-8.91A8.91,8.91 0 0,1 8.91,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(243.99,159.26)" d="M9.18,0A9.18,9.18 0 1,1 0,-9.18A9.18,9.18 0 0,1 9.18,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(698.72,223.99)" d="M4.76,0A4.76,4.76 0 1,1 0,-4.76A4.76,4.76 0 0,1 4.76,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(435.07,66.16)" d="M8.98,0A8.98,8.98 0 1,1 0,-8.98A8.98,8.98 0 0,1 8.98,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(178.45,116.05)" d="M10.75,0A10.75,10.75 0 1,1 0,-10.75A10.75,10.75 0 0,1 10.75,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(606.85,196.23)" d="M7.12,0A7.12,7.12 0 1,1 0,-7.12A7.12,7.12 0 0,1 7.12,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(671.34,267.47)" d="M6.8,0A6.8,6.8 0 1,1 0,-6.8A6.8,6.8 0 0,1 6.8,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(563.38,185.05)" d="M8.53,0A8.53,8.53 0 1,1 0,-8.53A8.53,8.53 0 0,1 8.53,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(306.12,44.47)" d="M10.31,0A10.31,10.31 0 1,1 0,-10.31A10.31,10.31 0 0,1 10.31,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(377.57,91.51)" d="M9.88,0A9.88,9.88 0 1,1 0,-9.88A9.88,9.88 0 0,1 9.88,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(599.32,174.91)" d="M7.78,0A7.78,7.78 0 1,1 0,-7.78A7.78,7.78 0 0,1 7.78,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(377.49,150.2)" d="M8.76,0A8.76,8.76 0 1,1 0,-8.76A8.76,8.76 0 0,1 8.76,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(100.65,354.16)" d="M10.45,0A10.45,10.45 0 1,1 0,-10.45A10.45,10.45 0 0,1 10.45,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(144.42,377.05)" d="M9.34,0A9.34,9.34 0 1,1 0,-9.34A9.34,9.34 0 0,1 9.34,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(161.55,262.02)" d="M9.67,0A9.67,9.67 0 1,1 0,-9.67A9.67,9.67 0 0,1 9.67,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(278.6,164.71)" d="M7.95,0A7.95,7.95 0 1,1 0,-7.95A7.95,7.95 0 0,1 7.95,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(197.15,115.02)" d="M8.7,0A8.7,8.7 0 1,1 0,-8.7A8.7,8.7 0 0,1 8.7,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(633.34,243.52)" d="M8.79,0A8.79,8.79 0 1,1 0,-8.79A8.79,8.79 0 0,1 8.79,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(168.26,117.95)" d="M10.25,0A10.25,10.25 0 1,1 0,-10.25A10.25,10.25 0 0,1 10.25,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(173.1,122.71)" d="M9.87,0A9.87,9.87 0 1,1 0,-9.87A9.87,9.87 0 0,1 9.87,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(605.47,150.08)" d="M1.89,0A1.89,1.89 0 1,1 0,-1.89A1.89,1.89 0 0,1 1.89,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(637.74,143.73)" d="M6.85,0A6.85,6.85 0 1,1 0,-6.85A6.85,6.85 0 0,1 6.85,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(223.8,283.48)" d="M7.76,0A7.76,7.76 0 1,1 0,-7.76A7.76,7.76 0 0,1 7.76,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(318.74,32.88)" d="M10.14,0A10.14,10.14 0 1,1 0,-10.14A10.14,10.14 0 0,1 10.14,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(608.36,116.75)" d="M6.59,0A6.59,6.59 0 1,1 0,-6.59A6.59,6.59 0 0,1 6.59,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(617.67,236.01)" d="M7.11,0A7.11,7.11 0 1,1 0,-7.11A7.11,7.11 0 0,1 7.11,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(651.31,169.99)" d="M6.53,0A6.53,6.53 0 1,1 0,-6.53A6.53,6.53 0 0,1 6.53,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(303.29,44.5)" d="M11.16,0A11.16,11.16 0 1,1 0,-11.16A11.16,11.16 0 0,1 11.16,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(233.98,76.98)" d="M11.34,0A11.34,11.34 0 1,1 0,-11.34A11.34,11.34 0 0,1 11.34,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(317.13,17.95)" d="M10.48,0A10.48,10.48 0 1,1 0,-10.48A10.48,10.48 0 0,1 10.48,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(248.22,104.02)" d="M10.43,0A10.43,10.43 0 1,1 0,-10.43A10.43,10.43 0 0,1 10.43,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(563.14,299.1)" d="M6.2,0A6.2,6.2 0 1,1 0,-6.2A6.2,6.2 0 0,1 6.2,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(297.57,167.14)" d="M9.8,0A9.8,9.8 0 1,1 0,-9.8A9.8,9.8 0 0,1 9.8,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(649.45,240.57)" d="M5.13,0A5.13,5.13 0 1,1 0,-5.13A5.13,5.13 0 0,1 5.13,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(663.89,258.16)" d="M7.32,0A7.32,7.32 0 1,1 0,-7.32A7.32,7.32 0 0,1 7.32,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(527.66,96.31)" d="M6.1,0A6.1,6.1 0 1,1 0,-6.1A6.1,6.1 0 0,1 6.1,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(572.59,163.71)" d="M9.56,0A9.56,9.56 0 1,1 0,-9.56A9.56,9.56 0 0,1 9.56,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(589.53,171.73)" d="M8.76,0A8.76,8.76 0 1,1 0,-8.76A8.76,8.76 0 0,1 8.76,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(424.14,82.98)" d="M6.62,0A6.62,6.62 0 1,1 0,-6.62A6.62,6.62 0 0,1 6.62,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(696.47,221.91)" d="M7.73,0A7.73,7.73 0 1,1 0,-7.73A7.73,7.73 0 0,1 7.73,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(34.09,305.05)" d="M10.75,0A10.75,10.75 0 1,1 0,-10.75A10.75,10.75 0 0,1 10.75,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(70.18,182)" d="M9.21,0A9.21,9.21 0 1,1 0,-9.21A9.21,9.21 0 0,1 9.21,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(622.1,117.38)" d="M9.25,0A9.25,9.25 0 1,1 0,-9.25A9.25,9.25 0 0,1 9.25,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(637.03,124.45)" d="M8.52,0A8.52,8.52 0 1,1 0,-8.52A8.52,8.52 0 0,1 8.52,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(592.85,113.48)" d="M9.92,0A9.92,9.92 0 1,1 0,-9.92A9.92,9.92 0 0,1 9.92,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(715.91,251.91)" d="M6.08,0A6.08,6.08 0 1,1 0,-6.08A6.08,6.08 0 0,1 6.08,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(448.43,237.12)" d="M5.88,0A5.88,5.88 0 1,1 0,-5.88A5.88,5.88 0 0,1 5.88,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(468.82,264.11)" d="M5.65,0A5.65,5.65 0 1,1 0,-5.65A5.65,5.65 0 0,1 5.65,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(638.85,206.98)" d="M4.54,0A4.54,4.54 0 1,1 0,-4.54A4.54,4.54 0 0,1 4.54,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(545.41,144.53)" d="M8.74,0A8.74,8.74 0 1,1 0,-8.74A8.74,8.74 0 0,1 8.74,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(530.44,257.02)" d="M8.08,0A8.08,8.08 0 1,1 0,-8.08A8.08,8.08 0 0,1 8.08,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(411.92,138.61)" d="M7.35,0A7.35,7.35 0 1,1 0,-7.35A7.35,7.35 0 0,1 7.35,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(513.4,83.56)" d="M7.69,0A7.69,7.69 0 1,1 0,-7.69A7.69,7.69 0 0,1 7.69,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path><path class="point" transform="translate(326.07,179.49)" d="M8.16,0A8.16,8.16 0 1,1 0,-8.16A8.16,8.16 0 0,1 8.16,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(625.41,142.42)" d="M7.87,0A7.87,7.87 0 1,1 0,-7.87A7.87,7.87 0 0,1 7.87,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(59.34,194.83)" d="M11.14,0A11.14,11.14 0 1,1 0,-11.14A11.14,11.14 0 0,1 11.14,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(165, 42, 42); fill-opacity: 1; stroke: rgb(165, 42, 42); stroke-opacity: 1;"></path><path class="point" transform="translate(598.2,192.13)" d="M7.66,0A7.66,7.66 0 1,1 0,-7.66A7.66,7.66 0 0,1 7.66,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(668.63,270.18)" d="M6.78,0A6.78,6.78 0 1,1 0,-6.78A6.78,6.78 0 0,1 6.78,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(625.18,144.39)" d="M7.52,0A7.52,7.52 0 1,1 0,-7.52A7.52,7.52 0 0,1 7.52,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(255, 192, 203); fill-opacity: 1; stroke: rgb(255, 192, 203); stroke-opacity: 1;"></path><path class="point" transform="translate(515,320.64)" d="M7.19,0A7.19,7.19 0 1,1 0,-7.19A7.19,7.19 0 0,1 7.19,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(0, 0, 0); fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 1;"></path><path class="point" transform="translate(315.28,83.95)" d="M8.15,0A8.15,8.15 0 1,1 0,-8.15A8.15,8.15 0 0,1 8.15,0Z" style="opacity: 1; stroke-width: 1.88976px; fill: rgb(210, 105, 30); fill-opacity: 1; stroke: rgb(210, 105, 30); stroke-opacity: 1;"></path></g><g class="text"></g></g></g></g><g class="overplot"></g><path class="xlines-above crisp" d="" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0); stroke-opacity: 0;"></path><path class="ylines-above crisp" d="" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0); stroke-opacity: 0;"></path><g class="overlines-above"></g><g class="xaxislayer-above"><path class="xtick ticks crisp" d="M0,422v3.652968036529681" transform="translate(255.56,0)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="xtick ticks crisp" d="M0,422v3.652968036529681" transform="translate(492.23,0)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="xtick ticks crisp" d="M0,422v3.652968036529681" transform="translate(728.9,0)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><g class="xtick"><text text-anchor="middle" x="0" y="439.6803652968037" data-unformatted="-2.5" data-math="N" transform="translate(255.56,0)" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;">-2.5</text></g><g class="xtick"><text text-anchor="middle" x="0" y="439.6803652968037" data-unformatted="0.0" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(492.23,0)">0.0</text></g><g class="xtick"><text text-anchor="middle" x="0" y="439.6803652968037" data-unformatted="2.5" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(728.9,0)">2.5</text></g></g><g class="yaxislayer-above"><path class="ytick ticks crisp" d="M41,0h-3.652968036529681" transform="translate(0,415.64)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ytick ticks crisp" d="M41,0h-3.652968036529681" transform="translate(0,345.62)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ytick ticks crisp" d="M41,0h-3.652968036529681" transform="translate(0,275.59000000000003)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ytick ticks crisp" d="M41,0h-3.652968036529681" transform="translate(0,205.56)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ytick ticks crisp" d="M41,0h-3.652968036529681" transform="translate(0,135.54000000000002)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><path class="ytick ticks crisp" d="M41,0h-3.652968036529681" transform="translate(0,65.50999999999999)" style="stroke: rgb(51, 51, 51); stroke-opacity: 1; stroke-width: 1px;"></path><g class="ytick"><text text-anchor="end" x="35.00913242009132" y="4.091324200913243" data-unformatted="-3" data-math="N" transform="translate(0,415.64)" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;">-3</text></g><g class="ytick"><text text-anchor="end" x="35.00913242009132" y="4.091324200913243" data-unformatted="-2" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(0,345.62)">-2</text></g><g class="ytick"><text text-anchor="end" x="35.00913242009132" y="4.091324200913243" data-unformatted="-1" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(0,275.59000000000003)">-1</text></g><g class="ytick"><text text-anchor="end" x="35.00913242009132" y="4.091324200913243" data-unformatted="0" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(0,205.56)">0</text></g><g class="ytick"><text text-anchor="end" x="35.00913242009132" y="4.091324200913243" data-unformatted="1" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(0,135.54000000000002)">1</text></g><g class="ytick"><text text-anchor="end" x="35.00913242009132" y="4.091324200913243" data-unformatted="2" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 11.6895px; fill: rgb(77, 77, 77); fill-opacity: 1; white-space: pre; opacity: 1;" transform="translate(0,65.50999999999999)">2</text></g></g><g class="overaxes-above"></g></g></g><g class="polarlayer"></g><g class="smithlayer"></g><g class="ternarylayer"></g><g class="geolayer"></g><g class="funnelarealayer"></g><g class="pielayer"></g><g class="iciclelayer"></g><g class="treemaplayer"></g><g class="sunburstlayer"></g><g class="glimages"></g></svg><div class="gl-container"></div><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="799" height="464"><defs id="topdefs-a836fe"><g class="clips"></g></defs><g class="indicatorlayer"></g><g class="layer-above"><g class="imagelayer"></g><g class="shapelayer"><path data-index="0" fill-rule="evenodd" d="M42,421H792V26H42Z" style="opacity: 1; stroke: rgb(0, 0, 0); stroke-opacity: 0; fill: rgb(0, 0, 0); fill-opacity: 0; stroke-width: 0px;"></path></g></g><g class="infolayer"><g class="g-gtitle"></g><g class="g-xtitle" transform="translate(0,-13.835616438356169)"><text class="xtitle" x="417" y="474.83561643835617" text-anchor="middle" data-unformatted="PC1" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 14.61px; fill: rgb(0, 0, 0); opacity: 1; font-weight: normal; white-space: pre;">PC1</text></g><g class="g-ytitle" transform="translate(11.7236328125,0)"><text class="ytitle" transform="rotate(-90,2.7762557077625516,223.5)" x="2.7762557077625516" y="223.5" text-anchor="middle" data-unformatted="PC2" data-math="N" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 14.61px; fill: rgb(0, 0, 0); opacity: 1; font-weight: normal; white-space: pre;">PC2</text></g></g><g class="menulayer"></g><g class="zoomlayer"></g></svg><div class="modebar-container" style="position: absolute; top: 0px; right: 0px; width: 100%;"><div id="modebar-a836fe" class="modebar modebar--hover ease-bg" style="z-index: 1;"><div class="modebar-group"><a rel="tooltip" class="modebar-btn" data-title="Download plot as a png" data-toggle="false" data-gravity="n"><svg viewBox="0 0 1000 1000" class="icon" height="1em" width="1em"><path d="m500 450c-83 0-150-67-150-150 0-83 67-150 150-150 83 0 150 67 150 150 0 83-67 150-150 150z m400 150h-120c-16 0-34 13-39 29l-31 93c-6 15-23 28-40 28h-340c-16 0-34-13-39-28l-31-94c-6-15-23-28-40-28h-120c-55 0-100-45-100-100v-450c0-55 45-100 100-100h800c55 0 100 45 100 100v450c0 55-45 100-100 100z m-400-550c-138 0-250 112-250 250 0 138 112 250 250 250 138 0 250-112 250-250 0-138-112-250-250-250z m365 380c-19 0-35 16-35 35 0 19 16 35 35 35 19 0 35-16 35-35 0-19-16-35-35-35z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a></div><div class="modebar-group"><a rel="tooltip" class="modebar-btn active" data-title="Zoom" data-attr="dragmode" data-val="zoom" data-toggle="false" data-gravity="n"><svg viewBox="0 0 1000 1000" class="icon" height="1em" width="1em"><path d="m1000-25l-250 251c40 63 63 138 63 218 0 224-182 406-407 406-224 0-406-182-406-406s183-406 407-406c80 0 155 22 218 62l250-250 125 125z m-812 250l0 438 437 0 0-438-437 0z m62 375l313 0 0-312-313 0 0 312z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Pan" data-attr="dragmode" data-val="pan" data-toggle="false" data-gravity="n"><svg viewBox="0 0 1000 1000" class="icon" height="1em" width="1em"><path d="m1000 350l-187 188 0-125-250 0 0 250 125 0-188 187-187-187 125 0 0-250-250 0 0 125-188-188 186-187 0 125 252 0 0-250-125 0 187-188 188 188-125 0 0 250 250 0 0-126 187 188z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Box Select" data-attr="dragmode" data-val="select" data-toggle="false" data-gravity="n"><svg viewBox="0 0 1000 1000" class="icon" height="1em" width="1em"><path d="m0 850l0-143 143 0 0 143-143 0z m286 0l0-143 143 0 0 143-143 0z m285 0l0-143 143 0 0 143-143 0z m286 0l0-143 143 0 0 143-143 0z m-857-286l0-143 143 0 0 143-143 0z m857 0l0-143 143 0 0 143-143 0z m-857-285l0-143 143 0 0 143-143 0z m857 0l0-143 143 0 0 143-143 0z m-857-286l0-143 143 0 0 143-143 0z m286 0l0-143 143 0 0 143-143 0z m285 0l0-143 143 0 0 143-143 0z m286 0l0-143 143 0 0 143-143 0z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Lasso Select" data-attr="dragmode" data-val="lasso" data-toggle="false" data-gravity="n"><svg viewBox="0 0 1031 1000" class="icon" height="1em" width="1em"><path d="m1018 538c-36 207-290 336-568 286-277-48-473-256-436-463 10-57 36-108 76-151-13-66 11-137 68-183 34-28 75-41 114-42l-55-70 0 0c-2-1-3-2-4-3-10-14-8-34 5-45 14-11 34-8 45 4 1 1 2 3 2 5l0 0 113 140c16 11 31 24 45 40 4 3 6 7 8 11 48-3 100 0 151 9 278 48 473 255 436 462z m-624-379c-80 14-149 48-197 96 42 42 109 47 156 9 33-26 47-66 41-105z m-187-74c-19 16-33 37-39 60 50-32 109-55 174-68-42-25-95-24-135 8z m360 75c-34-7-69-9-102-8 8 62-16 128-68 170-73 59-175 54-244-5-9 20-16 40-20 61-28 159 121 317 333 354s407-60 434-217c28-159-121-318-333-355z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a></div><div class="modebar-group"><a rel="tooltip" class="modebar-btn" data-title="Zoom in" data-attr="zoom" data-val="in" data-toggle="false" data-gravity="n"><svg viewBox="0 0 875 1000" class="icon" height="1em" width="1em"><path d="m1 787l0-875 875 0 0 875-875 0z m687-500l-187 0 0-187-125 0 0 187-188 0 0 125 188 0 0 187 125 0 0-187 187 0 0-125z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Zoom out" data-attr="zoom" data-val="out" data-toggle="false" data-gravity="n"><svg viewBox="0 0 875 1000" class="icon" height="1em" width="1em"><path d="m0 788l0-876 875 0 0 876-875 0z m688-500l-500 0 0 125 500 0 0-125z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Autoscale" data-attr="zoom" data-val="auto" data-toggle="false" data-gravity="n"><svg viewBox="0 0 1000 1000" class="icon" height="1em" width="1em"><path d="m250 850l-187 0-63 0 0-62 0-188 63 0 0 188 187 0 0 62z m688 0l-188 0 0-62 188 0 0-188 62 0 0 188 0 62-62 0z m-875-938l0 188-63 0 0-188 0-62 63 0 187 0 0 62-187 0z m875 188l0-188-188 0 0-62 188 0 62 0 0 62 0 188-62 0z m-125 188l-1 0-93-94-156 156 156 156 92-93 2 0 0 250-250 0 0-2 93-92-156-156-156 156 94 92 0 2-250 0 0-250 0 0 93 93 157-156-157-156-93 94 0 0 0-250 250 0 0 0-94 93 156 157 156-157-93-93 0 0 250 0 0 250z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Reset axes" data-attr="zoom" data-val="reset" data-toggle="false" data-gravity="n"><svg viewBox="0 0 928.6 1000" class="icon" height="1em" width="1em"><path d="m786 296v-267q0-15-11-26t-25-10h-214v214h-143v-214h-214q-15 0-25 10t-11 26v267q0 1 0 2t0 2l321 264 321-264q1-1 1-4z m124 39l-34-41q-5-5-12-6h-2q-7 0-12 3l-386 322-386-322q-7-4-13-4-7 2-12 7l-35 41q-4 5-3 13t6 12l401 334q18 15 42 15t43-15l136-114v109q0 8 5 13t13 5h107q8 0 13-5t5-13v-227l122-102q5-5 6-12t-4-13z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a></div><div class="modebar-group"><a rel="tooltip" class="modebar-btn active" data-title="Show closest data on hover" data-attr="hovermode" data-val="closest" data-toggle="false" data-gravity="ne"><svg viewBox="0 0 1500 1000" class="icon" height="1em" width="1em"><path d="m375 725l0 0-375-375 375-374 0-1 1125 0 0 750-1125 0z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a><a rel="tooltip" class="modebar-btn" data-title="Compare data on hover" data-attr="hovermode" data-val="x" data-toggle="false" data-gravity="ne"><svg viewBox="0 0 1125 1000" class="icon" height="1em" width="1em"><path d="m187 786l0 2-187-188 188-187 0 0 937 0 0 373-938 0z m0-499l0 1-187-188 188-188 0 0 937 0 0 376-938-1z" transform="matrix(1 0 0 -1 0 850)"></path></svg></a></div><div class="modebar-group"><a href="https://plotly.com/" target="_blank" data-title="Produced with Plotly.js (v2.11.1)" class="modebar-btn plotlyjsicon modebar-btn--logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 132" height="1em" width="1em"><defs><style>.cls-1 {fill: #3f4f75;} .cls-2 {fill: #80cfbe;} .cls-3 {fill: #fff;}</style></defs><title>plotly-logomark</title><g id="symbol"><rect class="cls-1" width="132" height="132" rx="6" ry="6"></rect><circle class="cls-2" cx="78" cy="54" r="6"></circle><circle class="cls-2" cx="102" cy="30" r="6"></circle><circle class="cls-2" cx="78" cy="30" r="6"></circle><circle class="cls-2" cx="54" cy="30" r="6"></circle><circle class="cls-2" cx="30" cy="30" r="6"></circle><circle class="cls-2" cx="30" cy="54" r="6"></circle><path class="cls-3" d="M30,72a6,6,0,0,0-6,6v24a6,6,0,0,0,12,0V78A6,6,0,0,0,30,72Z"></path><path class="cls-3" d="M78,72a6,6,0,0,0-6,6v24a6,6,0,0,0,12,0V78A6,6,0,0,0,78,72Z"></path><path class="cls-3" d="M54,48a6,6,0,0,0-6,6v48a6,6,0,0,0,12,0V54A6,6,0,0,0,54,48Z"></path><path class="cls-3" d="M102,48a6,6,0,0,0-6,6v48a6,6,0,0,0,12,0V54A6,6,0,0,0,102,48Z"></path></g></svg></a></div></div></div><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="799" height="464"><g class="hoverlayer"></g></svg></div></div></div>
+<script type="application/json" data-for="htmlwidget-5b1241b206f92c6e0be4">{"x":{"data":[{"x":[-3.819861745033883,-2.7960236395023106,1.2025836315339846,0.4486537787292979,0.70289922101263658,-2.468338337445545,-4.1053122278249035,0.71385812911879809,1.0135720412682272,0.81049644709198365,-2.1543658740121492,1.6526848199514994,2.3818081662045811,1.5124993621205072,2.1443093258381687,2.2613376304884403,1.823833483839149,1.960478116041894,1.3336074637748299,1.1116736451286771,1.4615295226573086,1.6684901647770936,0.37722674851876498,-3.0478835644961513,-2.1169641707883962,-2.1785037562027103,2.6249158673699662,-0.16010609998878458,-2.8708654644150076,1.6545004188042889,2.3356469520707206,1.195287664829545,-1.5222381444208095,-0.76747560629035982,1.5748729015402905,-0.76836937030615671,-3.6927221838214135,-3.2303651268152196,-3.0493622631808122,-1.8129279465958612,-2.6732784917460655,1.9342689493482901,-2.9785508125316498,-2.9274048760239721,1.6398527213514749,1.980709823041948,-2.3918055607741091,-1.3889706898085166,1.670422274508238,1.7687934829190708,2.1240684877673286,-1.552102509716293,-2.2842798483348696,-1.4059076089204245,-2.1338239828456738,1.1927441238739038,-1.6125932233170028,2.1044025437438409,2.256991848753044,0.81799664349647294,1.2925912853784436,1.4714851736125267,-0.27556562513355537,2.6011521390625942,-4.3957679187957552,-4.0145733479370378,1.8155176864056168,1.9732666039236575,1.5065849329187211,2.8064783733762066,-0.019005588740837482,0.19642038204205961,1.9924282012383736,1.0054740661616886,0.8473417124603102,-0.40463666537327836,0.66730732389627334,-1.3114984201784627,1.8504845635693894,-4.1290904398299482,1.5631258385733793,2.3070703300449913,1.8480880095264391,0.68420363241620319,-1.4254955249731809],"y":[-0.59357876699127587,-1.5196062111490725,0.17181206565384397,0.45197356214955653,-0.57313432631884176,0.70355011200464268,-2.1000967736149891,1.2098216536797459,0.28343196211930088,-1.6960889498264955,-1.9304213037340334,0.072643494363970648,0.44309260707365078,0.16239585915287191,-1.8388386159706915,0.58183225199364996,-1.7828662094011667,-1.0584680266894786,0.58926999209087072,0.62576978075165735,0.50736914823009438,0.37486462646383195,1.5654519145146009,0.68507927870811924,0.25045688907749492,0.28985700521309438,-0.63436716178127683,1.619442834690713,0.90696553350406905,-0.2379605144069481,-1.2553404646305242,-0.078361024580046415,1.9291395889858944,1.2573539135514684,0.066425974582051309,0.41927939455433988,-2.4933313172941678,-2.820103132666326,-1.1774777304496815,0.2120726312239031,0.92172073441268187,-0.91333072245627711,0.87988353679582776,0.81190131536810273,0.42102173223310313,0.51171509192833131,-1.483963751217678,2.0947188031081163,0.89697923645045796,-0.80603256401222612,0.13668229597088916,1.9287569792771277,1.4648923293464831,2.3077984818203503,1.0787289653625398,-1.7069749283502231,0.17737349316927231,-0.87113405557911094,-1.1223199933908508,1.1888290122000165,0.22637051370533737,0.1118354559060635,1.3792344137274375,-0.60479475204908917,-1.7919312516198191,-0.034767352242761562,0.88794452152158443,0.78694732388641475,0.94372908300374203,-1.0331193111443169,-0.82195422930654582,-1.2073694698280586,-0.3915898647659945,0.50033270400461116,-1.1060686710295196,0.58485803620256482,1.3709464979822485,0.00097212857499537895,0.53040551680395576,-0.21802995732966404,-0.1794588353868278,-1.2940268824869618,0.50220061837795893,-2.0146385440068371,1.3654147702341177],"text":["PC1: -3.81986175<br />PC2: -0.5935787670<br />winpercent/100: 0.6697173<br />100 Grand<br />rownames(my_data): 100 Grand","PC1: -2.79602364<br />PC2: -1.5196062111<br />winpercent/100: 0.6760294<br />3 Musketeers<br />rownames(my_data): 3 Musketeers","PC1:  1.20258363<br />PC2:  0.1718120657<br />winpercent/100: 0.3226109<br />One dime<br />rownames(my_data): One dime","PC1:  0.44865378<br />PC2:  0.4519735621<br />winpercent/100: 0.4611650<br />One quarter<br />rownames(my_data): One quarter","PC1:  0.70289922<br />PC2: -0.5731343263<br />winpercent/100: 0.5234146<br />Air Heads<br />rownames(my_data): Air Heads","PC1: -2.46833834<br />PC2:  0.7035501120<br />winpercent/100: 0.5034755<br />Almond Joy<br />rownames(my_data): Almond Joy","PC1: -4.10531223<br />PC2: -2.1000967736<br />winpercent/100: 0.5691455<br />Baby Ruth<br />rownames(my_data): Baby Ruth","PC1:  0.71385813<br />PC2:  1.2098216537<br />winpercent/100: 0.2341782<br />Boston Baked Beans<br />rownames(my_data): Boston Baked Beans","PC1:  1.01357204<br />PC2:  0.2834319621<br />winpercent/100: 0.3801096<br />Candy Corn<br />rownames(my_data): Candy Corn","PC1:  0.81049645<br />PC2: -1.6960889498<br />winpercent/100: 0.3451768<br />Caramel Apple Pops<br />rownames(my_data): Caramel Apple Pops","PC1: -2.15436587<br />PC2: -1.9304213037<br />winpercent/100: 0.3897504<br />Charleston Chew<br />rownames(my_data): Charleston Chew","PC1:  1.65268482<br />PC2:  0.0726434944<br />winpercent/100: 0.3601763<br />Chewey Lemonhead Fruit Mix<br />rownames(my_data): Chewey Lemonhead Fruit Mix","PC1:  2.38180817<br />PC2:  0.4430926071<br />winpercent/100: 0.2452499<br />Chiclets<br />rownames(my_data): Chiclets","PC1:  1.51249936<br />PC2:  0.1623958592<br />winpercent/100: 0.4227208<br />Dots<br />rownames(my_data): Dots","PC1:  2.14430933<br />PC2: -1.8388386160<br />winpercent/100: 0.3946056<br />Dum Dums<br />rownames(my_data): Dum Dums","PC1:  2.26133763<br />PC2:  0.5818322520<br />winpercent/100: 0.4308892<br />Fruit Chews<br />rownames(my_data): Fruit Chews","PC1:  1.82383348<br />PC2: -1.7828662094<br />winpercent/100: 0.3918550<br />Fun Dip<br />rownames(my_data): Fun Dip","PC1:  1.96047812<br />PC2: -1.0584680267<br />winpercent/100: 0.4678335<br />Gobstopper<br />rownames(my_data): Gobstopper","PC1:  1.33360746<br />PC2:  0.5892699921<br />winpercent/100: 0.5711974<br />Haribo Gold Bears<br />rownames(my_data): Haribo Gold Bears","PC1:  1.11167365<br />PC2:  0.6257697808<br />winpercent/100: 0.3415896<br />Haribo Happy Cola<br />rownames(my_data): Haribo Happy Cola","PC1:  1.46152952<br />PC2:  0.5073691482<br />winpercent/100: 0.5141243<br />Haribo Sour Bears<br />rownames(my_data): Haribo Sour Bears","PC1:  1.66849016<br />PC2:  0.3748646265<br />winpercent/100: 0.4217877<br />Haribo Twin Snakes<br />rownames(my_data): Haribo Twin Snakes","PC1:  0.37722675<br />PC2:  1.5654519145<br />winpercent/100: 0.5537545<br />Hershey's Kisses<br />rownames(my_data): Hershey's Kisses","PC1: -3.04788356<br />PC2:  0.6850792787<br />winpercent/100: 0.6228448<br />Hershey's Krackel<br />rownames(my_data): Hershey's Krackel","PC1: -2.11696417<br />PC2:  0.2504568891<br />winpercent/100: 0.5649050<br />Hershey's Milk Chocolate<br />rownames(my_data): Hershey's Milk Chocolate","PC1: -2.17850376<br />PC2:  0.2898570052<br />winpercent/100: 0.5923612<br />Hershey's Special Dark<br />rownames(my_data): Hershey's Special Dark","PC1:  2.62491587<br />PC2: -0.6343671618<br />winpercent/100: 0.2812744<br />Jawbusters<br />rownames(my_data): Jawbusters","PC1: -0.16010610<br />PC2:  1.6194428347<br />winpercent/100: 0.5721925<br />Junior Mints<br />rownames(my_data): Junior Mints","PC1: -2.87086546<br />PC2:  0.9069655335<br />winpercent/100: 0.7676860<br />Kit Kat<br />rownames(my_data): Kit Kat","PC1:  1.65450042<br />PC2: -0.2379605144<br />winpercent/100: 0.4138956<br />Laffy Taffy<br />rownames(my_data): Laffy Taffy","PC1:  2.33564695<br />PC2: -1.2553404646<br />winpercent/100: 0.3914106<br />Lemonhead<br />rownames(my_data): Lemonhead","PC1:  1.19528766<br />PC2: -0.0783610246<br />winpercent/100: 0.5291139<br />Lifesavers big ring gummies<br />rownames(my_data): Lifesavers big ring gummies","PC1: -1.52223814<br />PC2:  1.9291395890<br />winpercent/100: 0.7146505<br />Peanut butter M&M's<br />rownames(my_data): Peanut butter M&M's","PC1: -0.76747561<br />PC2:  1.2573539136<br />winpercent/100: 0.6657458<br />M&M's<br />rownames(my_data): M&M's","PC1:  1.57487290<br />PC2:  0.0664259746<br />winpercent/100: 0.4641172<br />Mike & Ike<br />rownames(my_data): Mike & Ike","PC1: -0.76836937<br />PC2:  0.4192793946<br />winpercent/100: 0.5506407<br />Milk Duds<br />rownames(my_data): Milk Duds","PC1: -3.69272218<br />PC2: -2.4933313173<br />winpercent/100: 0.7309956<br />Milky Way<br />rownames(my_data): Milky Way","PC1: -3.23036513<br />PC2: -2.8201031327<br />winpercent/100: 0.6080070<br />Milky Way Midnight<br />rownames(my_data): Milky Way Midnight","PC1: -3.04936226<br />PC2: -1.1774777304<br />winpercent/100: 0.6435334<br />Milky Way Simply Caramel<br />rownames(my_data): Milky Way Simply Caramel","PC1: -1.81292795<br />PC2:  0.2120726312<br />winpercent/100: 0.4782975<br />Mounds<br />rownames(my_data): Mounds","PC1: -2.67327849<br />PC2:  0.9217207344<br />winpercent/100: 0.5452645<br />Mr Good Bar<br />rownames(my_data): Mr Good Bar","PC1:  1.93426895<br />PC2: -0.9133307225<br />winpercent/100: 0.5535405<br />Nerds<br />rownames(my_data): Nerds","PC1: -2.97855081<br />PC2:  0.8798835368<br />winpercent/100: 0.7073564<br />Nestle Butterfinger<br />rownames(my_data): Nestle Butterfinger","PC1: -2.92740488<br />PC2:  0.8119013154<br />winpercent/100: 0.6647068<br />Nestle Crunch<br />rownames(my_data): Nestle Crunch","PC1:  1.63985272<br />PC2:  0.4210217322<br />winpercent/100: 0.2244534<br />Nik L Nip<br />rownames(my_data): Nik L Nip","PC1:  1.98070982<br />PC2:  0.5117150919<br />winpercent/100: 0.3944680<br />Now & Later<br />rownames(my_data): Now & Later","PC1: -2.39180556<br />PC2: -1.4839637512<br />winpercent/100: 0.4629660<br />Payday<br />rownames(my_data): Payday","PC1: -1.38897069<br />PC2:  2.0947188031<br />winpercent/100: 0.6948379<br />Peanut M&Ms<br />rownames(my_data): Peanut M&Ms","PC1:  1.67042227<br />PC2:  0.8969792365<br />winpercent/100: 0.3772234<br />Pixie Sticks<br />rownames(my_data): Pixie Sticks","PC1:  1.76879348<br />PC2: -0.8060325640<br />winpercent/100: 0.4126551<br />Pop Rocks<br />rownames(my_data): Pop Rocks","PC1:  2.12406849<br />PC2:  0.1366822960<br />winpercent/100: 0.3734852<br />Red vines<br />rownames(my_data): Red vines","PC1: -1.55210251<br />PC2:  1.9287569793<br />winpercent/100: 0.8186626<br />Reese's Miniatures<br />rownames(my_data): Reese's Miniatures","PC1: -2.28427985<br />PC2:  1.4648923293<br />winpercent/100: 0.8418029<br />Reese's Peanut Butter cup<br />rownames(my_data): Reese's Peanut Butter cup","PC1: -1.40590761<br />PC2:  2.3077984818<br />winpercent/100: 0.7343499<br />Reese's pieces<br />rownames(my_data): Reese's pieces","PC1: -2.13382398<br />PC2:  1.0787289654<br />winpercent/100: 0.7288790<br />Reese's stuffed with pieces<br />rownames(my_data): Reese's stuffed with pieces","PC1:  1.19274412<br />PC2: -1.7069749284<br />winpercent/100: 0.3529076<br />Ring pop<br />rownames(my_data): Ring pop","PC1: -1.61259322<br />PC2:  0.1773734932<br />winpercent/100: 0.6571629<br />Rolo<br />rownames(my_data): Rolo","PC1:  2.10440254<br />PC2: -0.8711340556<br />winpercent/100: 0.2970369<br />Root Beer Barrels<br />rownames(my_data): Root Beer Barrels","PC1:  2.25699185<br />PC2: -1.1223199934<br />winpercent/100: 0.4284914<br />Runts<br />rownames(my_data): Runts","PC1:  0.81799664<br />PC2:  1.1888290122<br />winpercent/100: 0.3472200<br />Sixlets<br />rownames(my_data): Sixlets","PC1:  1.29259129<br />PC2:  0.2263705137<br />winpercent/100: 0.6308514<br />Skittles original<br />rownames(my_data): Skittles original","PC1:  1.47148517<br />PC2:  0.1118354559<br />winpercent/100: 0.5510369<br />Skittles wildberry<br />rownames(my_data): Skittles wildberry","PC1: -0.27556563<br />PC2:  1.3792344137<br />winpercent/100: 0.3788719<br />Nestle Smarties<br />rownames(my_data): Nestle Smarties","PC1:  2.60115214<br />PC2: -0.6047947520<br />winpercent/100: 0.4599583<br />Smarties candy<br />rownames(my_data): Smarties candy","PC1: -4.39576792<br />PC2: -1.7919312516<br />winpercent/100: 0.7667378<br />Snickers<br />rownames(my_data): Snickers","PC1: -4.01457335<br />PC2: -0.0347673522<br />winpercent/100: 0.5952925<br />Snickers Crisper<br />rownames(my_data): Snickers Crisper","PC1:  1.81551769<br />PC2:  0.8879445215<br />winpercent/100: 0.5986400<br />Sour Patch Kids<br />rownames(my_data): Sour Patch Kids","PC1:  1.97326660<br />PC2:  0.7869473239<br />winpercent/100: 0.5282595<br />Sour Patch Tricksters<br />rownames(my_data): Sour Patch Tricksters","PC1:  1.50658493<br />PC2:  0.9437290830<br />winpercent/100: 0.6703763<br />Starburst<br />rownames(my_data): Starburst","PC1:  2.80647837<br />PC2: -1.0331193111<br />winpercent/100: 0.3457899<br />Strawberry bon bons<br />rownames(my_data): Strawberry bon bons","PC1: -0.01900559<br />PC2: -0.8219542293<br />winpercent/100: 0.3343755<br />Sugar Babies<br />rownames(my_data): Sugar Babies","PC1:  0.19642038<br />PC2: -1.2073694698<br />winpercent/100: 0.3223100<br />Sugar Daddy<br />rownames(my_data): Sugar Daddy","PC1:  1.99242820<br />PC2: -0.3915898648<br />winpercent/100: 0.2730386<br />Super Bubble<br />rownames(my_data): Super Bubble","PC1:  1.00547407<br />PC2:  0.5003327040<br />winpercent/100: 0.5486111<br />Swedish Fish<br />rownames(my_data): Swedish Fish","PC1:  0.84734171<br />PC2: -1.1060686710<br />winpercent/100: 0.4898265<br />Tootsie Pop<br />rownames(my_data): Tootsie Pop","PC1: -0.40463667<br />PC2:  0.5848580362<br />winpercent/100: 0.4306890<br />Tootsie Roll Juniors<br />rownames(my_data): Tootsie Roll Juniors","PC1:  0.66730732<br />PC2:  1.3709464980<br />winpercent/100: 0.4573675<br />Tootsie Roll Midgies<br />rownames(my_data): Tootsie Roll Midgies","PC1: -1.31149842<br />PC2:  0.0009721286<br />winpercent/100: 0.4965350<br />Tootsie Roll Snack Bars<br />rownames(my_data): Tootsie Roll Snack Bars","PC1:  1.85048456<br />PC2:  0.5304055168<br />winpercent/100: 0.4717323<br />Trolli Sour Bites<br />rownames(my_data): Trolli Sour Bites","PC1: -4.12909044<br />PC2: -0.2180299573<br />winpercent/100: 0.8164291<br />Twix<br />rownames(my_data): Twix","PC1:  1.56312584<br />PC2: -0.1794588354<br />winpercent/100: 0.4546628<br />Twizzlers<br />rownames(my_data): Twizzlers","PC1:  2.30707033<br />PC2: -1.2940268825<br />winpercent/100: 0.3901190<br />Warheads<br />rownames(my_data): Warheads","PC1:  1.84808801<br />PC2:  0.5022006184<br />winpercent/100: 0.4437552<br />Welch's Fruit Snacks<br />rownames(my_data): Welch's Fruit Snacks","PC1:  0.68420363<br />PC2: -2.0146385440<br />winpercent/100: 0.4190431<br />Werther's Original Caramel<br />rownames(my_data): Werther's Original Caramel","PC1: -1.42549552<br />PC2:  1.3654147702<br />winpercent/100: 0.4952411<br />Whoppers<br />rownames(my_data): Whoppers"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":["rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(0,0,0,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(0,0,0,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(210,105,30,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(0,0,0,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(0,0,0,1)","rgba(210,105,30,1)"],"opacity":1,"size":[19.828627725370275,19.941984319750745,11.314880656547571,15.481303576751872,16.930244105548791,16.484134594815721,17.900272666104886,6.1513544191163154,13.268631717585256,12.136283196529833,13.558076351961677,12.6402369136879,7.2479883217543106,14.488987603289399,13.700647372194114,14.707372216994584,13.620133203251825,15.644984830742168,17.942240251785197,12.011188691622834,16.724299417829293,14.463758693258258,17.581418277695441,18.960407698580422,17.813145978190153,18.368055701191199,9.5127175473046268,17.96254805653075,21.50651276191503,14.247927162561822,13.607059979498962,17.055002164064962,20.61895567351322,19.756894800114495,15.554045861588005,17.516009025138441,20.897399322815147,18.675024806269022,19.349592943727746,15.897376557849205,17.402336543296304,17.576931215749674,20.493201505700164,19.738073871370162,3.7795275590551185,13.696636182247577,15.525733227842068,20.275140640737121,13.180243764768324,14.213597533381357,13.064518020284071,22.319609322232719,22.677165354330711,20.953983377552241,20.861598987402733,12.39970178751039,19.600754635727014,10.259317495109034,14.643722125579757,12.206703679146875,19.112196180707198,17.524349561389624,13.230828600011638,15.451437040701942,21.491035308933039,18.426057141542458,18.492013876273006,17.036372913844975,19.840500380144245,12.157476429670227,11.753678691933704,11.303321658506617,9.0809712154395346,17.473206618105284,16.169502350938579,14.702070204995396,15.387058129122941,16.325131596709078,15.73964616303534,22.284733591160411,15.319466470168813,13.568973296550341,15.042760141550163,14.389197283895959,16.295265371189366],"symbol":"circle","line":{"width":1.8897637795275593,"color":["rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(0,0,0,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(0,0,0,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(210,105,30,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(0,0,0,1)","rgba(0,0,0,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(210,105,30,1)","rgba(210,105,30,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(165,42,42,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(255,192,203,1)","rgba(0,0,0,1)","rgba(210,105,30,1)"]}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.228310502283108,"r":7.3059360730593621,"b":40.182648401826498,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-4.7558802334043531,3.1665906879848049],"tickmode":"array","ticktext":["-2.5","0.0","2.5"],"tickvals":[-2.5,0,2.5],"categoryorder":"array","categoryarray":["-2.5","0.0","2.5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"PC1","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-3.0764982133906598,2.5641935625446841],"tickmode":"array","ticktext":["-3","-2","-1","0","1","2"],"tickvals":[-3,-2,-1,0,1,2],"categoryorder":"array","categoryarray":["-3","-2","-1","0","1","2"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"PC2","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"winpercent/100","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"108212e3d6e72":{"x":{},"y":{},"size":{},"text":{},"label":{},"type":"scatter"}},"cur_data":"108212e3d6e72","visdat":{"108212e3d6e72":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="http://localhost:5036/#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb52-2"><a href="http://localhost:5036/#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(pca<span class="sc">$</span>rotation[,<span class="dv">1</span>], <span class="at">las=</span><span class="dv">2</span>, <span class="at">ylab=</span><span class="st">"PC1 Contribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="./candy-data_files/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Q24. What original variables are picked up strongly by PC1 in the positive direction? Do these make sense to you? Fruity, hard and pluribus are all strong positives in PC1. This makes sense because variables with a strong, same sign are more likely to be correlated. Chocolates are typically hard candies that are packaged in singles (ex a kit kat).</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<div class="modal__dialog micromodal-slide" id="quarto-log-error-modal" aria-hidden="true">
+  <div class="modal__overlay" tabindex="2" data-micromodal-close="">
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="quarto-log-error-modal-title">
+      <header class="modal__header">
+        <h2 class="modal__title" id="quarto-log-error-modal-title">
+          <i class="bi bi-exclamation-circle"></i>Error
+        </h2>
+        <button class="modal__close" aria-label="Close modal" data-micromodal-close=""></button>
+      </header>
+      <div class="modal__content" id="quarto-log-error-modal-content">
+        <pre tabindex="1" id="quarto-log-error-display"></pre>
+      </div>
+      <footer class="modal__footer">
+      </footer>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+#quarto-log-error-modal .modal__overlay {
+  z-index: 5000;
+}
+#quarto-log-error-modal-content {
+  border: 1px solid #dee2e6;
+  overflow-y: auto;
+}
+#quarto-log-error-display {
+  min-height: 100px;
+  padding: 8px;
+  margin-bottom: 0;
+  font-family: monospace;
+}
+#quarto-log-error-display:focus {
+  outline: none;
+}
+.modal__dialog {
+  font-size: 16px;
+}
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal__container {
+  position: fixed;
+  top: 80px;
+  background-color: #fff;
+  padding: 15px;
+  padding-top: 10px;
+  min-width: 500px;
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 4px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 600;
+  border-bottom: none;
+  padding-bottom: 10px;
+  font-size: 20px;
+  color: rgb(191,71,65);
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+.modal__title .bi {
+  margin-right: 7px;
+}
+.modal__close {
+  background: transparent;
+  border: 0;
+  margin-bottom: 10px;
+}
+.modal__header .modal__close:before { content: "\2715"; }
+.modal__content {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@keyframes mmfadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@keyframes mmfadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}
+@keyframes mmslideIn {
+  from { transform: translateY(15%); }
+    to { transform: translateY(0); }
+}
+@keyframes mmslideOut {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10%); }
+}
+.micromodal-slide {
+  display: none;
+}
+.micromodal-slide.is-open {
+  display: block;
+}
+.micromodal-slide[aria-hidden="false"] .modal__overlay {
+  animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+.micromodal-slide[aria-hidden="false"] .modal__container {
+  animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1);
+}
+.micromodal-slide[aria-hidden="true"] .modal__overlay {
+  animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+.micromodal-slide[aria-hidden="true"] .modal__container {
+  animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
+}
+.micromodal-slide .modal__container,
+.micromodal-slide .modal__overlay {
+  will-change: transform;
+} 
+</style>
+<script type="text/javascript">
+  window.backupDefine = window.define; window.define = undefined;
+  /*  ansi_up.js
+   *  author : Dru Nelson
+   *  license : MIT
+   *  http://github.com/drudru/ansi_up
+   */
+   (function (root, factory) {
+      if (typeof define === 'function' && define.amd) {
+          // AMD. Register as an anonymous module.
+          define(['exports'], factory);
+      } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+          // CommonJS
+          factory(exports);
+      } else {
+          // Browser globals
+          var exp = {};
+          factory(exp);
+          root.AnsiUp = exp.default;
+      }
+  }(this, function (exports) {
+  "use strict";
+  var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
+      if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+      return cooked;
+  };
+  var PacketKind;
+  (function (PacketKind) {
+      PacketKind[PacketKind["EOS"] = 0] = "EOS";
+      PacketKind[PacketKind["Text"] = 1] = "Text";
+      PacketKind[PacketKind["Incomplete"] = 2] = "Incomplete";
+      PacketKind[PacketKind["ESC"] = 3] = "ESC";
+      PacketKind[PacketKind["Unknown"] = 4] = "Unknown";
+      PacketKind[PacketKind["SGR"] = 5] = "SGR";
+      PacketKind[PacketKind["OSCURL"] = 6] = "OSCURL";
+  })(PacketKind || (PacketKind = {}));
+  var AnsiUp = (function () {
+      function AnsiUp() {
+          this.VERSION = "5.1.0";
+          this.setup_palettes();
+          this._use_classes = false;
+          this.bold = false;
+          this.italic = false;
+          this.underline = false;
+          this.fg = this.bg = null;
+          this._buffer = '';
+          this._url_whitelist = { 'http': 1, 'https': 1 };
+      }
+      Object.defineProperty(AnsiUp.prototype, "use_classes", {
+          get: function () {
+              return this._use_classes;
+          },
+          set: function (arg) {
+              this._use_classes = arg;
+          },
+          enumerable: false,
+          configurable: true
+      });
+      Object.defineProperty(AnsiUp.prototype, "url_whitelist", {
+          get: function () {
+              return this._url_whitelist;
+          },
+          set: function (arg) {
+              this._url_whitelist = arg;
+          },
+          enumerable: false,
+          configurable: true
+      });
+      AnsiUp.prototype.setup_palettes = function () {
+          var _this = this;
+          this.ansi_colors =
+              [
+                  [
+                      { rgb: [0, 0, 0], class_name: "ansi-black" },
+                      { rgb: [187, 0, 0], class_name: "ansi-red" },
+                      { rgb: [0, 187, 0], class_name: "ansi-green" },
+                      { rgb: [187, 187, 0], class_name: "ansi-yellow" },
+                      { rgb: [0, 0, 187], class_name: "ansi-blue" },
+                      { rgb: [187, 0, 187], class_name: "ansi-magenta" },
+                      { rgb: [0, 187, 187], class_name: "ansi-cyan" },
+                      { rgb: [255, 255, 255], class_name: "ansi-white" }
+                  ],
+                  [
+                      { rgb: [85, 85, 85], class_name: "ansi-bright-black" },
+                      { rgb: [255, 85, 85], class_name: "ansi-bright-red" },
+                      { rgb: [0, 255, 0], class_name: "ansi-bright-green" },
+                      { rgb: [255, 255, 85], class_name: "ansi-bright-yellow" },
+                      { rgb: [85, 85, 255], class_name: "ansi-bright-blue" },
+                      { rgb: [255, 85, 255], class_name: "ansi-bright-magenta" },
+                      { rgb: [85, 255, 255], class_name: "ansi-bright-cyan" },
+                      { rgb: [255, 255, 255], class_name: "ansi-bright-white" }
+                  ]
+              ];
+          this.palette_256 = [];
+          this.ansi_colors.forEach(function (palette) {
+              palette.forEach(function (rec) {
+                  _this.palette_256.push(rec);
+              });
+          });
+          var levels = [0, 95, 135, 175, 215, 255];
+          for (var r = 0; r < 6; ++r) {
+              for (var g = 0; g < 6; ++g) {
+                  for (var b = 0; b < 6; ++b) {
+                      var col = { rgb: [levels[r], levels[g], levels[b]], class_name: 'truecolor' };
+                      this.palette_256.push(col);
+                  }
+              }
+          }
+          var grey_level = 8;
+          for (var i = 0; i < 24; ++i, grey_level += 10) {
+              var gry = { rgb: [grey_level, grey_level, grey_level], class_name: 'truecolor' };
+              this.palette_256.push(gry);
+          }
+      };
+      AnsiUp.prototype.escape_txt_for_html = function (txt) {
+          return txt.replace(/[&<>"']/gm, function (str) {
+              if (str === "&")
+                  return "&amp;";
+              if (str === "<")
+                  return "&lt;";
+              if (str === ">")
+                  return "&gt;";
+              if (str === "\"")
+                  return "&quot;";
+              if (str === "'")
+                  return "&#x27;";
+          });
+      };
+      AnsiUp.prototype.append_buffer = function (txt) {
+          var str = this._buffer + txt;
+          this._buffer = str;
+      };
+      AnsiUp.prototype.get_next_packet = function () {
+          var pkt = {
+              kind: PacketKind.EOS,
+              text: '',
+              url: ''
+          };
+          var len = this._buffer.length;
+          if (len == 0)
+              return pkt;
+          var pos = this._buffer.indexOf("\x1B");
+          if (pos == -1) {
+              pkt.kind = PacketKind.Text;
+              pkt.text = this._buffer;
+              this._buffer = '';
+              return pkt;
+          }
+          if (pos > 0) {
+              pkt.kind = PacketKind.Text;
+              pkt.text = this._buffer.slice(0, pos);
+              this._buffer = this._buffer.slice(pos);
+              return pkt;
+          }
+          if (pos == 0) {
+              if (len == 1) {
+                  pkt.kind = PacketKind.Incomplete;
+                  return pkt;
+              }
+              var next_char = this._buffer.charAt(1);
+              if ((next_char != '[') && (next_char != ']')) {
+                  pkt.kind = PacketKind.ESC;
+                  pkt.text = this._buffer.slice(0, 1);
+                  this._buffer = this._buffer.slice(1);
+                  return pkt;
+              }
+              if (next_char == '[') {
+                  if (!this._csi_regex) {
+                      this._csi_regex = rgx(__makeTemplateObject(["\n                        ^                           # beginning of line\n                                                    #\n                                                    # First attempt\n                        (?:                         # legal sequence\n                          \u001B[                      # CSI\n                          ([<-?]?)              # private-mode char\n                          ([d;]*)                    # any digits or semicolons\n                          ([ -/]?               # an intermediate modifier\n                          [@-~])                # the command\n                        )\n                        |                           # alternate (second attempt)\n                        (?:                         # illegal sequence\n                          \u001B[                      # CSI\n                          [ -~]*                # anything legal\n                          ([\0-\u001F:])              # anything illegal\n                        )\n                    "], ["\n                        ^                           # beginning of line\n                                                    #\n                                                    # First attempt\n                        (?:                         # legal sequence\n                          \\x1b\\[                      # CSI\n                          ([\\x3c-\\x3f]?)              # private-mode char\n                          ([\\d;]*)                    # any digits or semicolons\n                          ([\\x20-\\x2f]?               # an intermediate modifier\n                          [\\x40-\\x7e])                # the command\n                        )\n                        |                           # alternate (second attempt)\n                        (?:                         # illegal sequence\n                          \\x1b\\[                      # CSI\n                          [\\x20-\\x7e]*                # anything legal\n                          ([\\x00-\\x1f:])              # anything illegal\n                        )\n                    "]));
+                  }
+                  var match = this._buffer.match(this._csi_regex);
+                  if (match === null) {
+                      pkt.kind = PacketKind.Incomplete;
+                      return pkt;
+                  }
+                  if (match[4]) {
+                      pkt.kind = PacketKind.ESC;
+                      pkt.text = this._buffer.slice(0, 1);
+                      this._buffer = this._buffer.slice(1);
+                      return pkt;
+                  }
+                  if ((match[1] != '') || (match[3] != 'm'))
+                      pkt.kind = PacketKind.Unknown;
+                  else
+                      pkt.kind = PacketKind.SGR;
+                  pkt.text = match[2];
+                  var rpos = match[0].length;
+                  this._buffer = this._buffer.slice(rpos);
+                  return pkt;
+              }
+              if (next_char == ']') {
+                  if (len < 4) {
+                      pkt.kind = PacketKind.Incomplete;
+                      return pkt;
+                  }
+                  if ((this._buffer.charAt(2) != '8')
+                      || (this._buffer.charAt(3) != ';')) {
+                      pkt.kind = PacketKind.ESC;
+                      pkt.text = this._buffer.slice(0, 1);
+                      this._buffer = this._buffer.slice(1);
+                      return pkt;
+                  }
+                  if (!this._osc_st) {
+                      this._osc_st = rgxG(__makeTemplateObject(["\n                        (?:                         # legal sequence\n                          (\u001B\\)                    # ESC                           |                           # alternate\n                          (\u0007)                      # BEL (what xterm did)\n                        )\n                        |                           # alternate (second attempt)\n                        (                           # illegal sequence\n                          [\0-\u0006]                 # anything illegal\n                          |                           # alternate\n                          [\b-\u001A]                 # anything illegal\n                          |                           # alternate\n                          [\u001C-\u001F]                 # anything illegal\n                        )\n                    "], ["\n                        (?:                         # legal sequence\n                          (\\x1b\\\\)                    # ESC \\\n                          |                           # alternate\n                          (\\x07)                      # BEL (what xterm did)\n                        )\n                        |                           # alternate (second attempt)\n                        (                           # illegal sequence\n                          [\\x00-\\x06]                 # anything illegal\n                          |                           # alternate\n                          [\\x08-\\x1a]                 # anything illegal\n                          |                           # alternate\n                          [\\x1c-\\x1f]                 # anything illegal\n                        )\n                    "]));
+                  }
+                  this._osc_st.lastIndex = 0;
+                  {
+                      var match_1 = this._osc_st.exec(this._buffer);
+                      if (match_1 === null) {
+                          pkt.kind = PacketKind.Incomplete;
+                          return pkt;
+                      }
+                      if (match_1[3]) {
+                          pkt.kind = PacketKind.ESC;
+                          pkt.text = this._buffer.slice(0, 1);
+                          this._buffer = this._buffer.slice(1);
+                          return pkt;
+                      }
+                  }
+                  {
+                      var match_2 = this._osc_st.exec(this._buffer);
+                      if (match_2 === null) {
+                          pkt.kind = PacketKind.Incomplete;
+                          return pkt;
+                      }
+                      if (match_2[3]) {
+                          pkt.kind = PacketKind.ESC;
+                          pkt.text = this._buffer.slice(0, 1);
+                          this._buffer = this._buffer.slice(1);
+                          return pkt;
+                      }
+                  }
+                  if (!this._osc_regex) {
+                      this._osc_regex = rgx(__makeTemplateObject(["\n                        ^                           # beginning of line\n                                                    #\n                        \u001B]8;                    # OSC Hyperlink\n                        [ -:<-~]*       # params (excluding ;)\n                        ;                           # end of params\n                        ([!-~]{0,512})        # URL capture\n                        (?:                         # ST\n                          (?:\u001B\\)                  # ESC                           |                           # alternate\n                          (?:\u0007)                    # BEL (what xterm did)\n                        )\n                        ([ -~]+)              # TEXT capture\n                        \u001B]8;;                   # OSC Hyperlink End\n                        (?:                         # ST\n                          (?:\u001B\\)                  # ESC                           |                           # alternate\n                          (?:\u0007)                    # BEL (what xterm did)\n                        )\n                    "], ["\n                        ^                           # beginning of line\n                                                    #\n                        \\x1b\\]8;                    # OSC Hyperlink\n                        [\\x20-\\x3a\\x3c-\\x7e]*       # params (excluding ;)\n                        ;                           # end of params\n                        ([\\x21-\\x7e]{0,512})        # URL capture\n                        (?:                         # ST\n                          (?:\\x1b\\\\)                  # ESC \\\n                          |                           # alternate\n                          (?:\\x07)                    # BEL (what xterm did)\n                        )\n                        ([\\x20-\\x7e]+)              # TEXT capture\n                        \\x1b\\]8;;                   # OSC Hyperlink End\n                        (?:                         # ST\n                          (?:\\x1b\\\\)                  # ESC \\\n                          |                           # alternate\n                          (?:\\x07)                    # BEL (what xterm did)\n                        )\n                    "]));
+                  }
+                  var match = this._buffer.match(this._osc_regex);
+                  if (match === null) {
+                      pkt.kind = PacketKind.ESC;
+                      pkt.text = this._buffer.slice(0, 1);
+                      this._buffer = this._buffer.slice(1);
+                      return pkt;
+                  }
+                  pkt.kind = PacketKind.OSCURL;
+                  pkt.url = match[1];
+                  pkt.text = match[2];
+                  var rpos = match[0].length;
+                  this._buffer = this._buffer.slice(rpos);
+                  return pkt;
+              }
+          }
+      };
+      AnsiUp.prototype.ansi_to_html = function (txt) {
+          this.append_buffer(txt);
+          var blocks = [];
+          while (true) {
+              var packet = this.get_next_packet();
+              if ((packet.kind == PacketKind.EOS)
+                  || (packet.kind == PacketKind.Incomplete))
+                  break;
+              if ((packet.kind == PacketKind.ESC)
+                  || (packet.kind == PacketKind.Unknown))
+                  continue;
+              if (packet.kind == PacketKind.Text)
+                  blocks.push(this.transform_to_html(this.with_state(packet)));
+              else if (packet.kind == PacketKind.SGR)
+                  this.process_ansi(packet);
+              else if (packet.kind == PacketKind.OSCURL)
+                  blocks.push(this.process_hyperlink(packet));
+          }
+          return blocks.join("");
+      };
+      AnsiUp.prototype.with_state = function (pkt) {
+          return { bold: this.bold, italic: this.italic, underline: this.underline, fg: this.fg, bg: this.bg, text: pkt.text };
+      };
+      AnsiUp.prototype.process_ansi = function (pkt) {
+          var sgr_cmds = pkt.text.split(';');
+          while (sgr_cmds.length > 0) {
+              var sgr_cmd_str = sgr_cmds.shift();
+              var num = parseInt(sgr_cmd_str, 10);
+              if (isNaN(num) || num === 0) {
+                  this.fg = this.bg = null;
+                  this.bold = false;
+                  this.italic = false;
+                  this.underline = false;
+              }
+              else if (num === 1) {
+                  this.bold = true;
+              }
+              else if (num === 3) {
+                  this.italic = true;
+              }
+              else if (num === 4) {
+                  this.underline = true;
+              }
+              else if (num === 22) {
+                  this.bold = false;
+              }
+              else if (num === 23) {
+                  this.italic = false;
+              }
+              else if (num === 24) {
+                  this.underline = false;
+              }
+              else if (num === 39) {
+                  this.fg = null;
+              }
+              else if (num === 49) {
+                  this.bg = null;
+              }
+              else if ((num >= 30) && (num < 38)) {
+                  this.fg = this.ansi_colors[0][(num - 30)];
+              }
+              else if ((num >= 40) && (num < 48)) {
+                  this.bg = this.ansi_colors[0][(num - 40)];
+              }
+              else if ((num >= 90) && (num < 98)) {
+                  this.fg = this.ansi_colors[1][(num - 90)];
+              }
+              else if ((num >= 100) && (num < 108)) {
+                  this.bg = this.ansi_colors[1][(num - 100)];
+              }
+              else if (num === 38 || num === 48) {
+                  if (sgr_cmds.length > 0) {
+                      var is_foreground = (num === 38);
+                      var mode_cmd = sgr_cmds.shift();
+                      if (mode_cmd === '5' && sgr_cmds.length > 0) {
+                          var palette_index = parseInt(sgr_cmds.shift(), 10);
+                          if (palette_index >= 0 && palette_index <= 255) {
+                              if (is_foreground)
+                                  this.fg = this.palette_256[palette_index];
+                              else
+                                  this.bg = this.palette_256[palette_index];
+                          }
+                      }
+                      if (mode_cmd === '2' && sgr_cmds.length > 2) {
+                          var r = parseInt(sgr_cmds.shift(), 10);
+                          var g = parseInt(sgr_cmds.shift(), 10);
+                          var b = parseInt(sgr_cmds.shift(), 10);
+                          if ((r >= 0 && r <= 255) && (g >= 0 && g <= 255) && (b >= 0 && b <= 255)) {
+                              var c = { rgb: [r, g, b], class_name: 'truecolor' };
+                              if (is_foreground)
+                                  this.fg = c;
+                              else
+                                  this.bg = c;
+                          }
+                      }
+                  }
+              }
+          }
+      };
+      AnsiUp.prototype.transform_to_html = function (fragment) {
+          var txt = fragment.text;
+          if (txt.length === 0)
+              return txt;
+          txt = this.escape_txt_for_html(txt);
+          if (!fragment.bold && !fragment.italic && !fragment.underline && fragment.fg === null && fragment.bg === null)
+              return txt;
+          var styles = [];
+          var classes = [];
+          var fg = fragment.fg;
+          var bg = fragment.bg;
+          if (fragment.bold)
+              styles.push('font-weight:bold');
+          if (fragment.italic)
+              styles.push('font-style:italic');
+          if (fragment.underline)
+              styles.push('text-decoration:underline');
+          if (!this._use_classes) {
+              if (fg)
+                  styles.push("color:rgb(" + fg.rgb.join(',') + ")");
+              if (bg)
+                  styles.push("background-color:rgb(" + bg.rgb + ")");
+          }
+          else {
+              if (fg) {
+                  if (fg.class_name !== 'truecolor') {
+                      classes.push(fg.class_name + "-fg");
+                  }
+                  else {
+                      styles.push("color:rgb(" + fg.rgb.join(',') + ")");
+                  }
+              }
+              if (bg) {
+                  if (bg.class_name !== 'truecolor') {
+                      classes.push(bg.class_name + "-bg");
+                  }
+                  else {
+                      styles.push("background-color:rgb(" + bg.rgb.join(',') + ")");
+                  }
+              }
+          }
+          var class_string = '';
+          var style_string = '';
+          if (classes.length)
+              class_string = " class=\"" + classes.join(' ') + "\"";
+          if (styles.length)
+              style_string = " style=\"" + styles.join(';') + "\"";
+          return "<span" + style_string + class_string + ">" + txt + "</span>";
+      };
+      ;
+      AnsiUp.prototype.process_hyperlink = function (pkt) {
+          var parts = pkt.url.split(':');
+          if (parts.length < 1)
+              return '';
+          if (!this._url_whitelist[parts[0]])
+              return '';
+          var result = "<a href=\"" + this.escape_txt_for_html(pkt.url) + "\">" + this.escape_txt_for_html(pkt.text) + "</a>";
+          return result;
+      };
+      return AnsiUp;
+  }());
+  function rgx(tmplObj) {
+      var subst = [];
+      for (var _i = 1; _i < arguments.length; _i++) {
+          subst[_i - 1] = arguments[_i];
+      }
+      var regexText = tmplObj.raw[0];
+      var wsrgx = /^\s+|\s+\n|\s*#[\s\S]*?\n|\n/gm;
+      var txt2 = regexText.replace(wsrgx, '');
+      return new RegExp(txt2);
+  }
+  function rgxG(tmplObj) {
+      var subst = [];
+      for (var _i = 1; _i < arguments.length; _i++) {
+          subst[_i - 1] = arguments[_i];
+      }
+      var regexText = tmplObj.raw[0];
+      var wsrgx = /^\s+|\s+\n|\s*#[\s\S]*?\n|\n/gm;
+      var txt2 = regexText.replace(wsrgx, '');
+      return new RegExp(txt2, 'g');
+  }
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.default = AnsiUp;
+  }));
+  // micromodal: https://github.com/Ghosh/micromodal
+  !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).MicroModal=t()}(this,(function(){"use strict";function e(e,t){for(var o=0;o<t.length;o++){var n=t[o];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function t(e){return function(e){if(Array.isArray(e))return o(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||function(e,t){if(!e)return;if("string"==typeof e)return o(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(e);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return o(e,t)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function o(e,t){(null==t||t>e.length)&&(t=e.length);for(var o=0,n=new Array(t);o<t;o++)n[o]=e[o];return n}var n,i,a,r,s,l=(n=["a[href]","area[href]",'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',"select:not([disabled]):not([aria-hidden])","textarea:not([disabled]):not([aria-hidden])","button:not([disabled]):not([aria-hidden])","iframe","object","embed","[contenteditable]",'[tabindex]:not([tabindex^="-"])'],i=function(){function o(e){var n=e.targetModal,i=e.triggers,a=void 0===i?[]:i,r=e.onShow,s=void 0===r?function(){}:r,l=e.onClose,c=void 0===l?function(){}:l,d=e.openTrigger,u=void 0===d?"data-micromodal-trigger":d,f=e.closeTrigger,h=void 0===f?"data-micromodal-close":f,v=e.openClass,g=void 0===v?"is-open":v,m=e.disableScroll,b=void 0!==m&&m,y=e.disableFocus,p=void 0!==y&&y,w=e.awaitCloseAnimation,E=void 0!==w&&w,k=e.awaitOpenAnimation,M=void 0!==k&&k,A=e.debugMode,C=void 0!==A&&A;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,o),this.modal=document.getElementById(n),this.config={debugMode:C,disableScroll:b,openTrigger:u,closeTrigger:h,openClass:g,onShow:s,onClose:c,awaitCloseAnimation:E,awaitOpenAnimation:M,disableFocus:p},a.length>0&&this.registerTriggers.apply(this,t(a)),this.onClick=this.onClick.bind(this),this.onKeydown=this.onKeydown.bind(this)}var i,a,r;return i=o,(a=[{key:"registerTriggers",value:function(){for(var e=this,t=arguments.length,o=new Array(t),n=0;n<t;n++)o[n]=arguments[n];o.filter(Boolean).forEach((function(t){t.addEventListener("click",(function(t){return e.showModal(t)}))}))}},{key:"showModal",value:function(){var e=this,t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null;if(this.activeElement=document.activeElement,this.modal.setAttribute("aria-hidden","false"),this.modal.classList.add(this.config.openClass),this.scrollBehaviour("disable"),this.addEventListeners(),this.config.awaitOpenAnimation){var o=function t(){e.modal.removeEventListener("animationend",t,!1),e.setFocusToFirstNode()};this.modal.addEventListener("animationend",o,!1)}else this.setFocusToFirstNode();this.config.onShow(this.modal,this.activeElement,t)}},{key:"closeModal",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,t=this.modal;if(this.modal.setAttribute("aria-hidden","true"),this.removeEventListeners(),this.scrollBehaviour("enable"),this.activeElement&&this.activeElement.focus&&this.activeElement.focus(),this.config.onClose(this.modal,this.activeElement,e),this.config.awaitCloseAnimation){var o=this.config.openClass;this.modal.addEventListener("animationend",(function e(){t.classList.remove(o),t.removeEventListener("animationend",e,!1)}),!1)}else t.classList.remove(this.config.openClass)}},{key:"closeModalById",value:function(e){this.modal=document.getElementById(e),this.modal&&this.closeModal()}},{key:"scrollBehaviour",value:function(e){if(this.config.disableScroll){var t=document.querySelector("body");switch(e){case"enable":Object.assign(t.style,{overflow:""});break;case"disable":Object.assign(t.style,{overflow:"hidden"})}}}},{key:"addEventListeners",value:function(){this.modal.addEventListener("touchstart",this.onClick),this.modal.addEventListener("click",this.onClick),document.addEventListener("keydown",this.onKeydown)}},{key:"removeEventListeners",value:function(){this.modal.removeEventListener("touchstart",this.onClick),this.modal.removeEventListener("click",this.onClick),document.removeEventListener("keydown",this.onKeydown)}},{key:"onClick",value:function(e){(e.target.hasAttribute(this.config.closeTrigger)||e.target.parentNode.hasAttribute(this.config.closeTrigger))&&(e.preventDefault(),e.stopPropagation(),this.closeModal(e))}},{key:"onKeydown",value:function(e){27===e.keyCode&&this.closeModal(e),9===e.keyCode&&this.retainFocus(e)}},{key:"getFocusableNodes",value:function(){var e=this.modal.querySelectorAll(n);return Array.apply(void 0,t(e))}},{key:"setFocusToFirstNode",value:function(){var e=this;if(!this.config.disableFocus){var t=this.getFocusableNodes();if(0!==t.length){var o=t.filter((function(t){return!t.hasAttribute(e.config.closeTrigger)}));o.length>0&&o[0].focus(),0===o.length&&t[0].focus()}}}},{key:"retainFocus",value:function(e){var t=this.getFocusableNodes();if(0!==t.length)if(t=t.filter((function(e){return null!==e.offsetParent})),this.modal.contains(document.activeElement)){var o=t.indexOf(document.activeElement);e.shiftKey&&0===o&&(t[t.length-1].focus(),e.preventDefault()),!e.shiftKey&&t.length>0&&o===t.length-1&&(t[0].focus(),e.preventDefault())}else t[0].focus()}}])&&e(i.prototype,a),r&&e(i,r),o}(),a=null,r=function(e){if(!document.getElementById(e))return console.warn("MicroModal: ❗Seems like you have missed %c'".concat(e,"'"),"background-color: #f8f9fa;color: #50596c;font-weight: bold;","ID somewhere in your code. Refer example below to resolve it."),console.warn("%cExample:","background-color: #f8f9fa;color: #50596c;font-weight: bold;",'<div class="modal" id="'.concat(e,'"></div>')),!1},s=function(e,t){if(function(e){e.length<=0&&(console.warn("MicroModal: ❗Please specify at least one %c'micromodal-trigger'","background-color: #f8f9fa;color: #50596c;font-weight: bold;","data attribute."),console.warn("%cExample:","background-color: #f8f9fa;color: #50596c;font-weight: bold;",'<a href="#" data-micromodal-trigger="my-modal"></a>'))}(e),!t)return!0;for(var o in t)r(o);return!0},{init:function(e){var o=Object.assign({},{openTrigger:"data-micromodal-trigger"},e),n=t(document.querySelectorAll("[".concat(o.openTrigger,"]"))),r=function(e,t){var o=[];return e.forEach((function(e){var n=e.attributes[t].value;void 0===o[n]&&(o[n]=[]),o[n].push(e)})),o}(n,o.openTrigger);if(!0!==o.debugMode||!1!==s(n,r))for(var l in r){var c=r[l];o.targetModal=l,o.triggers=t(c),a=new i(o)}},show:function(e,t){var o=t||{};o.targetModal=e,!0===o.debugMode&&!1===r(e)||(a&&a.removeEventListeners(),(a=new i(o)).showModal())},close:function(e){e?a.closeModalById(e):a.closeModal()}});return"undefined"!=typeof window&&(window.MicroModal=l),l}));  
+  window.define = window.backupDefine; window.backupDefine = undefined;
+  </script>
+<script type="text/javascript">
+  (function () {
+    // forward keydown events so shortcuts can work in vscode, see:
+    // https://github.com/microsoft/vscode/issues/65452#issuecomment-586485815
+    if (window.parent.postMessage) {
+      window.document.addEventListener('keydown', e => {
+        const event = {
+          type: "keydown",
+          data: {
+            altKey: e.altKey,
+            code: e.code,
+            ctrlKey: e.ctrlKey,
+            isComposing: e.isComposing,
+            key: e.key,
+            location: e.location,
+            metaKey: e.metaKey,
+            repeat: e.repeat,
+            shiftKey: e.shiftKey
+          }
+        };
+        window.parent.postMessage(event, '*');
+      });
+    }
+    // listen for execCommand messages
+    window.addEventListener("message", function (event) {
+      if (event.data.type === "devhost-exec-command") {
+        window.document.execCommand(event.data.data);
+      } 
+    }, true);
+    const logEntries = new Array(1000);
+    logEntries.offset = 0;
+    function recordLogEntry(entry) {
+      logEntries[logEntries.offset++] = entry;
+      logEntries.offset %= logEntries.length;
+    }
+    function getLogEntry(i) { // backwards, 0 is most recent
+        return logEntries[(logEntries.offset - 1 - i + logEntries.length) % logEntries.length];
+    }
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    let path = window.location.pathname;
+    if (!/\/$/.test(path)) path += "/";
+    const devServerSocket = new WebSocket(protocol + "//" + window.location.host + path);
+    let reloadPage = true;
+    addEventListener("beforeunload", () => {
+      // don't reload page in case of navigation events
+      reloadPage = false;
+    })
+    devServerSocket.onopen = () => {
+      console.log('Socket connection open. Listening for events.');
+      // if the socket closes for any reason (e.g. this occurs in electron apps
+      // when the computer suspends) then reload to reestablish the connection 
+      devServerSocket.onclose = () => {
+        if (reloadPage) {
+          console.log('Socket connection closed. Reloading.');
+          window.location.reload(true);
+        }
+      }
+    };
+    // append for errors that occur within the error window
+    let lastError = 0;
+    const kErrorWindow = 2500;
+    function showError(msg) {
+      const ansiUp = new AnsiUp
+      const html = ansiUp.ansi_to_html(msg.trim());
+      const display = document.getElementById("quarto-log-error-display");
+      if (display.innerHTML && ((Date.now() - lastError) < kErrorWindow)) {
+        display.innerHTML = display.innerHTML + "<br/>" +  html;
+      } else {
+        display.innerHTML = html
+      }
+      lastError = Date.now()
+      MicroModal.show('quarto-log-error-modal', {
+        awaitCloseAnimation: true,
+        onClose: () => { display.innerHTML = ""; }
+      });
+      // post message to parent indicating we had an error
+      if (window.parent.postMessage) {
+        window.parent.postMessage({
+          type: "error",
+          msg: msg,
+        }, "*");
+      }
+    }
+    // see if there is already an error to show
+    const renderError = document.getElementById("quarto-render-error");
+    if (renderError) {
+      showError(renderError.innerHTML.trim());
+    }
+    const normalizeTarget = (target) => {
+      return target.replace(/\/index\.html/, "/")
+    };
+    devServerSocket.onmessage = (msg) => {
+      if (msg.data.startsWith('reload')) {
+        let target = normalizeTarget(msg.data.replace(/^reload/, ""));
+        // prepend proxy path to target if we have one
+        if (target) {
+          const pathPrefix = 
+            window.location.pathname.match(/^.*?\/p\/\w+\//) ||
+            window.location.pathname.match(/^.*?\/user\/[\w\d]+\/proxy\/\d+\//);
+          if (pathPrefix) {
+            target = pathPrefix + target.slice(1);
+          }
+        }
+        if (target && (target !== normalizeTarget(window.location.pathname))) {
+          window.location.replace(target);
+        } else {
+          window.location.reload(true);
+        }
+      } else if (msg.data.startsWith('log:')) {
+        const ansiUp = new AnsiUp
+        const log = JSON.parse(msg.data.substr(4));
+        recordLogEntry(log);
+        if (log.levelName === "ERROR") {
+          showError(log.msgFormatted)
+        } else {
+          // see if there is a knitr error to report
+          const kExecutionHalted = "Execution halted";
+          if (log.msg.indexOf(kExecutionHalted) !== -1) {
+            // scan backwards for beginning of error
+            const errorEntries = [getLogEntry(0).msgFormatted];
+            for (let i=1; i<logEntries.length; i++) {
+              const logEntry = getLogEntry(i);
+              if (logEntry) {
+                errorEntries.unshift(logEntry.msgFormatted);
+                if (logEntry.msg.indexOf("Quitting from lines") !== -1) {
+                  showError(errorEntries.join(""));
+                  break;
+                } else if (logEntry.msg.indexOf(kExecutionHalted) !== -1) {
+                  break;
+                }
+              } else {
+                break;
+              }
+            }
+          }
+        }
+      }
+    };
+  })();
+</script>
+
+<script type="text/javascript">
+  if (window.parent.postMessage) {
+    // wait for message providing confirmation we are in a devhost
+    window.addEventListener("message", function (event) {
+      if (event.data.type === "devhost-init") {
+        window.quartoDevhost = {
+          openInputFile: function (line, column, highlight) {
+            window.parent.postMessage({
+              type: "openfile",
+              file: "/Users/jacobgil/Downloads/BIMM 143/class09/class09.qmd",
+              line: line,
+              column: column,
+              highlight: highlight
+            }, event.origin);
+          }
+        };
+      } else if (event.data.type === "goback") {
+        window.history.back()
+      } else if (event.data.type === "goforward") {
+        window.history.forward()
+      }
+    }, true);
+    // notify host of navigation (e.g. for 'pop out' command)
+    window.parent.postMessage({
+      type: "navigate",
+      href: window.location.href,
+      file: "/Users/jacobgil/Downloads/BIMM 143/class09/class09.qmd"
+    }, "*");
+  }
+</script>
+<svg id="js-plotly-tester" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; left: -10000px; top: -10000px; width: 9000px; height: 9000px; z-index: 1;"><path class="js-reference-point" d="M0,0H1V1H0Z" style="stroke-width: 0; fill: black;"></path></svg></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

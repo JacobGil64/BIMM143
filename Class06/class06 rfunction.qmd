@@ -1,0 +1,41 @@
+---
+title: "class06 R Function"
+author: "Jacob Gil"
+format: html
+---
+
+```{r}
+# (A. Can you improve this analysis code?
+df <- data.frame(a=1:10, b=seq(200,400,length=10),c=11:20,d=NA)
+
+#df$a <- rescale(df$a)
+
+# #identify repition
+# x <- (x- min(x) / (max(x) - min(x))
+#       
+# #identify further repition
+# xmin <- min(x)
+# 
+# #use raange function
+# rng <- range(x)
+# x <- (x - rng[1] / (rng[2] - rng[1])
+
+# #put into a function
+# rescale <- function(x) {
+#   rng <- range(x)
+#   x <- (x - rng[1]) / (rng[2] - rng[1])
+# }
+
+
+# simple test of function
+# rescale(1:1)
+
+#account for na values
+rescale02 <- function(x, na.rm=T) {
+  rng <- range(x, na.rm = na.rm)
+  x <- (x - rng[1]) / (rng[2] - rng[1])
+}   
+
+rescale02(df)
+```
+

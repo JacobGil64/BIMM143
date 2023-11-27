@@ -1,0 +1,67 @@
+---
+title: "class06"
+author: "Jacob Gil"
+format: pdf
+---
+
+
+```{r}
+# Example input vectors to start with
+student1 <- c(100, 100, 100, 100, 100, 100, 100, 90)
+student2 <- c(100, NA, 90, 90, 90, 90, 97, 80)
+student3 <- c(90, NA, NA, NA, NA, NA, NA, NA)
+
+## removes lowest value from student1
+student1[-which.min(student1)]
+
+## changes any NA values to 0
+student1[is.na(student1)] <- 0
+
+#' Title
+#' drops the lowest value of a vector and averages the remaining values, missing values will be treated as 0
+#' @param x a numerical value of homework scores
+#'
+#' @return average score  
+#' @export
+#'
+#' @examples
+#' studentA <- c(100, 90, 100, NA)
+#' grade(studentA)
+#' 
+grade <- function(x){
+  # treat missing values as 0
+  x[is.na(x)] <- 0
+  # exclude lowest score from average
+  mean(x[-which.min(x)])
+}
+
+grade(student1)
+
+
+## importing data from url
+url <- "https://tinyurl.com/gradeinput"
+
+## reads csv data from website
+gradebook <- read.csv(url, row.names = 1)
+
+## runs grade function over the imported csv
+results <- apply(gradebook, 1, grade)
+results
+
+## finds the highest scorer in a csv/gradebook
+which.max(results)
+
+## finds the hardest hw assignment
+ave.scores <- apply(gradebook, 2, mean, na.rm = T)
+which.min(ave.scores)
+ave.scores
+
+## changes NA values to 0
+masked.gradebook <- gradebook
+masked.gradebook[is.na(masked.gradebook)] <- 0
+
+## finds the hw assignment that best determines overall grades
+apply(masked.gradebook, 2, cor, x = results)
+which.max(apply(masked.gradebook, 2, cor, x = results))
+```
+
